@@ -1,11 +1,22 @@
 import React, {useState} from 'react';
 
-const Player = ({name, role}) => {
+const Player = ({name, roleName, roleType}) => {
 
+    // return (
+    //     <div>
+    //         {name} - {role}
+    //     </div>
+    // )
     return (
-        <div>
-            <p>{name}</p>
-            {role && <span> - {role}</span>}
+        <div style={{ textAlign: 'left'}}>
+            <div>
+                {name}
+            </div>
+            {roleType && roleName && (
+                <div>
+                    {roleType} - {roleName}
+                </div>
+            )}
         </div>
     )
 }

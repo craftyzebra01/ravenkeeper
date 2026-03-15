@@ -9,9 +9,66 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1rem;
 }
 
 h1 {
   margin-bottom: 2rem;
   color: #646cff;
 }
+
+.game {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 10px;
+}
+
+.player-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+}
+
+ .player-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid;
+ }
+
+ .player-row > div:first-child {
+  flex: 1;
+ }
+
+ .script-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+ }
+
+ .util-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+ }
+
+ .role-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+ }
+
+ .role-row {
+  border: 1px solid;
+ }
+
+ ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+ }

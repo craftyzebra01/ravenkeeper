@@ -1,0 +1,19 @@
+- update the script order display to indicate role type.
+- consider including the role description.
+
+- Game functions
+    - Start game
+    - Process Night Time
+        - Component, state being turn order and stuff to display
+        - progress til done, then end to go back to main page
+        - allow ability to view roles info still.
+    - Mark player as dead
+    - REMINDER TOKENS
+- UI
+    - Enhance the script order display
+    - Add indicator for dead player.
+- BEHIND THE SCENES
+    - add game objects?
+    - like game.session.roles: [role] -> that are part of an active game
+        - game.session.firstNight: -> specific order of roles that are in this game. 
+        - NO this is determined by players as the active object, and then functions only, stop storing stuff left and right.
