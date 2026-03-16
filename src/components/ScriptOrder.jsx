@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState} from 'react';
 
 const ScriptOrder = ({firstNight, otherNight, backFn}) => {
     const [viewFirst, setViewFirst] = useState(true);

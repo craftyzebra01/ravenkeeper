@@ -12,8 +12,16 @@
 - UI
     - Enhance the script order display
     - Add indicator for dead player.
+    - Ability to rearrange player order
+        - eventually drag and drop
+        - for now make up down buttons?
 - BEHIND THE SCENES
     - add game objects?
     - like game.session.roles: [role] -> that are part of an active game
         - game.session.firstNight: -> specific order of roles that are in this game. 
         - NO this is determined by players as the active object, and then functions only, stop storing stuff left and right.
+
+Open Questions
+- Can I have players just learn their roles at night??
+- pass phone in a circle and have them select??
+- or pass in circle with pre-determined order. 

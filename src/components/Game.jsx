@@ -85,6 +85,13 @@ const Game = () => {
         }
     }
 
+    const handleNextPhase = () => {
+        setGame({
+            ...game,
+            phase: 'firstNight'
+        });
+    }
+
     // EVENTS END
 
     useEffect(() => {
@@ -140,7 +147,14 @@ const Game = () => {
                             roleName={player.role?.name}
                             roleType={player.role?.type}
                         />
-                        <button type="button" onClick={() => handleRemovePlayer(player.name)}>X</button>
+                        
+                        {game.phase === 'setup' && (
+                            <button type="button" onClick={() => handleRemovePlayer(player.name)}>X</button>
+                        )}
+                        <div className='up-down'>
+                            <button>^</button>
+                            <button>v</button>
+                        </div>
                     </li>
                 ))}
                 </ul>
@@ -162,7 +176,7 @@ const Game = () => {
             <div className='util-info'>
                 <button onClick={handleShuffleRoles}>Shuffle Roles</button>
                 <button onClick={handleResetGame}>Reset Game</button>
-                <button>Next Phase</button>
+                <button button onClick={handleNextPhase}>Next Phase</button>
                 <button>End Game</button>
             </div>
         </div>
