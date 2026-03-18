@@ -14,6 +14,18 @@ export function gameReducer(game, action) {
                 overlay: action.overlay
             }
         }
+        case 'del_player': {
+            return {
+                ...game, 
+                players: game.players.filter(player => player.name !== action.playerName)
+            }
+        }
+        case 'add_player': {
+            return {
+                ...game,
+                players: [...game.players, {name: action.playerName}]
+            }
+        }
         default: 
             return game;
     }

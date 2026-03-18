@@ -1,11 +1,23 @@
+import { useState } from "react"
 import Player from "./Player"
 
 const PlayersDisplay = ({players, dispatch}) => {
- 
+    const [playerName, setPlayerName] = useState('')
+
+    const handleAddPlayer = (e) => {
+        e.preventDefault()
+        dispatch({type: 'add_player', playerName: playerName})
+        setPlayerName('')
+    }
+
+    const handleDelPlayer = (e) => {
+        dispatch({type: 'del_player', playerName: playerName})
+    }
+
     return (
         <div className='player-info'>
             <ul className='player-list'>
-                {players.map((player, index) => {
+                {players.map((player, index) => (
                     <li key={player.name || index}
                         className='player-row'>
                             <Player
@@ -15,7 +27,7 @@ const PlayersDisplay = ({players, dispatch}) => {
                             />
 
                             <div className='player-setup-buttons'>
-                                <button onClick={() => dispatch({type: 'del_player', playerName: player.name})}>
+                                <button> 
                                     X
                                 </button>
                                 <div className='up-down'>
@@ -24,14 +36,16 @@ const PlayersDisplay = ({players, dispatch}) => {
                                 </div>
                             </div>
                         </li>
-                })}
+                ))}
             </ul>
-
-            <form onSubmit={(e) => dispatch({type: 'add_player', playerName: e.target.value})}>
+            
+            <form onSubmit={(e) => handleAddPlayer(e)}>
                 <input
                     type='text'
+                    value={playerName}
+                    onChange={(e) => setPlayerName(e.target.value)}
                     placeholder='Enter player name...'
-                    aria-label='Player name'
+                    aria-label='Player Name'
                 />
                 <button type='submit'>
                     Add Player

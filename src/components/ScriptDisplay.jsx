@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { allScripts } from "../data/scripts/allScripts";
 
-const ScriptDisplay = ({scriptNames, selectedScript, dispatch, viewRoleCB, viewScriptOrderCB}) => {
+const ScriptDisplay = ({selectedScript, dispatch}) => {
 
     return (
         <div className='script-display-container'>
@@ -8,14 +9,12 @@ const ScriptDisplay = ({scriptNames, selectedScript, dispatch, viewRoleCB, viewS
                 value={selectedScript.name}
                 onChange={(e) => {dispatch({type: 'set_script', scriptName: e.target.value})}}
             >
-                {scriptNames.map(script => (
-                    <option key={script} value={script}>
-                        {script}
+                {allScripts.map(script => (
+                    <option key={script.name} value={script.name}>
+                        {script.name}
                     </option>
                 ))}
             </select>
-            <button onClick={viewRoleCB}>Roles</button>
-            <button onClick={viewScriptOrderCB}>Script Order</button>
         </div>
     )
 }

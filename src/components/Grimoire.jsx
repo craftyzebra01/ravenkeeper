@@ -2,14 +2,16 @@ import PlayersDisplay from "./PlayersDisplay";
 import ScriptDisplay from "./ScriptDisplay"
 
 const Grimoire = ({game, dispatch}) => {
+    console.log(game.players)
     return (
         <div>
-            <ScriptDisplay
-                scriptNames={game.scriptNames}
-                selectedScript={game.selectedScript}
+            <ScriptDisplay 
+                selectedScript={game.script}
+                dispatch={dispatch}
             />
             <PlayersDisplay
                 players={game.players}
+                dispatch={dispatch}
             />
         </div>
     )
