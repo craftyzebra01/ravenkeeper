@@ -1,4 +1,4 @@
-const RolesDisplay = ({roles, backFn}) => {
+const RoleInfo = ({roles}) => {
     return (
         <div>
             <div className='roles-display'>
@@ -12,10 +12,8 @@ const RolesDisplay = ({roles, backFn}) => {
                     ))}
                 </ul>
             </div>
-
-            <button onClick={backFn}>Return</button>
         </div>
     )
 }
 
-export default RolesDisplay;
+export default RoleInfo

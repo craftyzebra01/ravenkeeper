@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-const ScriptOrderDisplay = ({firstNight, otherNight, backFn}) => {
+const ScriptOrder = ({firstNight, otherNight}) => {
     const [viewFirst, setViewFirst] = useState(true);
 
     const handleFlipScript = () => {
@@ -17,10 +17,9 @@ const ScriptOrderDisplay = ({firstNight, otherNight, backFn}) => {
             </ul>
             <div className='rd-buttons'>
                 <button onClick={handleFlipScript}>Flip</button>
-                <button onClick={backFn}>Return</button>
             </div>
         </div>
     )
 }
 
-export default ScriptOrderDisplay;
+export default ScriptOrder;

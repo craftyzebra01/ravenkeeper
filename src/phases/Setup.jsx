@@ -15,39 +15,12 @@ import ScriptOrderDisplay from '../components/ScriptOrderDisplay';
  */
 
 const Setup = ({scriptNames, selectedScript, dispatch}) => {    
-    const [viewRoles, setViewRoles] = useState(false)
-    const [viewScriptOrder, setViewScriptOrder] = useState(false)
-
-    if (viewRoles) {
-        console.log("Viewing roles...")
-        return (
-            <div>
-                <RolesDisplay
-                    roles={selectedScript.roles}
-                    backFn={() => setViewRoles(false)}
-                />
-            </div>
-        )
-    }
-
-    if (viewScriptOrder) {
-        return (
-            <ScriptOrderDisplay
-                firstNight={selectedScript.firstNight}
-                otherNight={selectedScript.otherNight}
-                backFn={() => setViewScriptOrder(false)}
-            />
-        )
-    }
-
     return (
         <div className='setup-container'>
             <ScriptDisplay
                 scriptNames={scriptNames}
                 selectedScript={selectedScript}
                 dispatch={dispatch}
-                viewRoleCB={() => setViewRoles(true)}
-                viewScriptOrderCB={() => setViewScriptOrder(true)}
             />
             <button>Start Game</button>
         </div>

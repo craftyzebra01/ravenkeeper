@@ -9,6 +9,15 @@ describe('gameLogic', () => {
             scriptName: scriptName 
         })
 
-        expect(game.script.name === scriptName)
+        expect(game.script.name === scriptName).toBeTruthy()
+    })
+
+    test('set_overlay', () => {
+        const overlay ='grimoire'
+        const game = gameReducer({}, {
+            type: 'set_overlay',
+            overlay: overlay
+        })
+        expect(game.overlay === overlay).toBeTruthy()
     })
 })

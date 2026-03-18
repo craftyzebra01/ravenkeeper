@@ -8,6 +8,12 @@ export function gameReducer(game, action) {
                 script: allScripts.find(s => s.name == action.scriptName)
             }
         }
+        case 'set_overlay': {
+            return {
+                ...game,
+                overlay: action.overlay
+            }
+        }
         default: 
             return game;
     }

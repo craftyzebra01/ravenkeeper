@@ -1,35 +1,58 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import { gameReducer } from './utils/gameLogic'
 import { allScripts } from './data/scripts/allScripts'
-import Setup from './phases/Setup' 
+import Grimoire from './components/Grimoire'
+import RoleInfo from './components/RoleInfo';
+import ScriptOrder from './components/ScriptOrder';
 
 export default function GameContainer() {
     const [game, dispatch] = useReducer(gameReducer, initialGame);
 
-    const renderPhase = (phase) => {
-        switch(phase) {
-            case 'setup':
+    const renderGame = (overlay) => {
+        switch(overlay) {
+            case 'grimoire':
                 return (
                     <div>
-                        <Setup
-                            scriptNames={allScripts.map(s => s.name)}
-                            selectedScript={game.script}
+                        <Grimoire
+                            game={game}
                             dispatch={dispatch}
                         />
                     </div>
-                );
+                )
+            case 'role_info':
+                return (
+                    <div>
+                        <RoleInfo
+                            roles={game.script.roles}
+                        />
+                    </div>
+                )
+            case 'script_order':
+                return (
+                    <div>
+                        <ScriptOrder
+                            firstNight={game.script.firstNight}
+                            otherNight={game.script.otherNight}
+                        />
+                    </div>
+                )
             default:
                 return (
                     <div>
-                        you should not be here!
+                        How did you get here?
                     </div>
-                );
+                )
         }
     }
 
     return (
         <div className='game-container'>
-            {renderPhase(game.phase)}
+            {renderGame(game.overlay)}
+            <div className='menu'>
+                <button onClick={() => dispatch({type: 'set_overlay', overlay: 'grimoire'})}>Grimoire</button>
+                <button onClick={() => dispatch({type: 'set_overlay', overlay: 'role_info'})}>Roles</button>
+                <button onClick={() => dispatch({type: 'set_overlay', overlay: 'script_order'})}>Script Order</button>
+            </div>
         </div>
     )
 
@@ -37,6 +60,7 @@ export default function GameContainer() {
 
 const initialGame = {
     phase: 'setup',
+    overlay: 'grimoire', // [grimoire,roleInfo,scriptOrder,night(?)]
     players: [],
     script: allScripts[0]
 };
