@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-const ScriptOrder = ({firstNight, otherNight, backFn}) => {
+const ScriptOrderDisplay = ({firstNight, otherNight, backFn}) => {
     const [viewFirst, setViewFirst] = useState(true);
 
     const handleFlipScript = () => {
@@ -23,4 +23,4 @@ const ScriptOrder = ({firstNight, otherNight, backFn}) => {
     )
 }
 
-export default ScriptOrder;
+export default ScriptOrderDisplay;

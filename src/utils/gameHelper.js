@@ -13,6 +13,14 @@ const roleCounts = [
     [9, 2, 3, 1]
 ]
 
+export const nextPhase = {
+    setup: 'preGame',
+    preGame: 'firstNight',
+    firstNight: 'day',
+    day: 'otherNight',
+    otherNight: 'day'
+}
+
 const roleMapping = ["townsfolk", "outsider", "minion", "demon"];
 
 export const shuffleArray = (arr) => {

@@ -83,3 +83,9 @@ h1 {
  .up-down > button {
   height: 50%;
  }
+
+ .player-setup-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* removing this stretches the del button */
+ }

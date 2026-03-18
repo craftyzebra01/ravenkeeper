@@ -1,6 +1,25 @@
 - update the script order display to indicate role type.
 - consider including the role description.
 
+
+- GAME FLOW
+    - Setup 
+        - Pick a script to play
+        - Add players to the game (in seating order)
+        - Future State
+            - manually select roles to pull from
+            - manually assign players role? 
+            - arrange seating order after adding to game
+    - Pre-Game
+        - Show Player their role
+        - future state
+            - assign reminder tokens
+    - First Night
+        - 
+    - Day Phase
+    - Other Night
+    - Post Game
+        
 - Game functions
     - Start game
     - Process Night Time

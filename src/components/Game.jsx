@@ -1,8 +1,8 @@
 import React, {useState, useEffect } from 'react';
 import Player from './Player';
-import {assignRoles, isBetween} from './../utils/gameHelper';
+import {assignRoles, isBetween, nextPhase} from './../utils/gameHelper';
 import RolesDisplay from './RolesDisplay';
-import ScriptOrder from './ScriptOrder';
+import ScriptOrder from './ScriptOrderDisplay';
 
 const Game = () => {
     const testPlayers = Array.from({length:4 }, (_, i) => ({name: i}));
@@ -12,8 +12,7 @@ const Game = () => {
     const [viewRoles, setViewRoles] = useState(false);
     const [viewScriptOrder, setViewScriptOrder] = useState(false);
 
-    
-    
+
     const fetchScripts = async (fileNames) => {
         try{
             const promises = fileNames.map(fileName =>
@@ -42,10 +41,9 @@ const Game = () => {
     const handleAddPlayer = (e) => {
         e.preventDefault();
         if (playerName) {
-            const newPlayers = [...game.players,  {name: playerName}];
             setGame({
                 ...game,
-                players: isBetween(newPlayers.length, 5, 15) ? assignRoles(newPlayers, game.script.roles) : newPlayers
+                players: [...game.players, {name: playerName}]
             });
             setPlayerName("");
         }
@@ -88,8 +86,8 @@ const Game = () => {
     const handleNextPhase = () => {
         setGame({
             ...game,
-            phase: 'firstNight'
-        });
+            phase: nextPhase[game.phase]
+        }); 
     }
 
     // EVENTS END
@@ -118,66 +116,80 @@ const Game = () => {
             />
         )
     }
-
+    
+    if(game.phase === 'preGame') {
+        return (
+            <PreGame
+                players={game.players}
+                backFn={() => setGame({...game, phase: nextPhase[game.phase]})}
+            />
+        )
+    }
+    // Probably refactor this to a setup component?
     return (
-        <div className='game'>
-            <div className='script-info'>
-                <select
-                    value={game.script?.name}
-                    onChange={(e) => handleScriptChange(e.target.value)}
-                >
-                    {scripts.map(script => (
-                        <option key={script.name} value={script.name}>
-                            {script.name}
-                        </option>
-                    ))}
-                </select>
-                <button onClick={handleViewRoles}>Roles</button>
-                <button onClick={handleViewScriptOrder}>Script Order</button>
-            </div>
-            
-            <div className='player-info'>
-                <ul className='player-list'>
-                    {game.players.map((player, index) => (
-                    <li key={player.name || index}
-                        className='player-row'
+        <div>
+            <h3>{game.phase}</h3>
+            <div className='game'>
+                <div className='script-info'>
+                    <select
+                        value={game.script?.name}
+                        onChange={(e) => handleScriptChange(e.target.value)}
                     >
-                        <Player 
-                            name={player.name}
-                            roleName={player.role?.name}
-                            roleType={player.role?.type}
-                        />
-                        
-                        {game.phase === 'setup' && (
-                            <button type="button" onClick={() => handleRemovePlayer(player.name)}>X</button>
-                        )}
-                        <div className='up-down'>
-                            <button>^</button>
-                            <button>v</button>
-                        </div>
-                    </li>
-                ))}
-                </ul>
+                        {scripts.map(script => (
+                            <option key={script.name} value={script.name}>
+                                {script.name}
+                            </option>
+                        ))}
+                    </select>
+                    <button onClick={handleViewRoles}>Roles</button>
+                    <button onClick={handleViewScriptOrder}>Script Order</button>
+                </div>
                 
-                <form onSubmit={(e) => handleAddPlayer(e)}>
-                    <input 
-                        type='text'
-                        value={playerName}
-                        onChange={(e) => setPlayerName(e.target.value)}
-                        placeholder='Enter player name...'
-                        aria-label='Player name'
-                    />
-                    <button type="submit">
-                        Add Player
-                    </button>
-                </form>
-            </div>
+                <div className='player-info'>
+                    <ul className='player-list'>
+                        {game.players.map((player, index) => (
+                        <li key={player.name || index}
+                            className='player-row'
+                        >
+                            <Player 
+                                name={player.name}
+                                roleName={player.role?.name}
+                                roleType={player.role?.type}
+                            />
+                            
+                            {game.phase === 'setup' && (
+                                <div className='player-setup-buttons'>
+                                    <button type="button" onClick={() => handleRemovePlayer(player.name)}>X</button>
+                                    <div className='up-down'>
+                                        <button>^</button>
+                                        <button>v</button>
+                                    </div>
+                                </div>
+                            )}
+                        </li>
+                    ))}
+                    </ul>
+                    
+                    <form onSubmit={(e) => handleAddPlayer(e)}>
+                        <input 
+                            type='text'
+                            value={playerName}
+                            onChange={(e) => setPlayerName(e.target.value)}
+                            placeholder='Enter player name...'
+                            aria-label='Player name'
+                        />
+                        <button type="submit">
+                            Add Player
+                        </button>
+                    </form>
+                </div>
 
-            <div className='util-info'>
-                <button onClick={handleShuffleRoles}>Shuffle Roles</button>
-                <button onClick={handleResetGame}>Reset Game</button>
-                <button button onClick={handleNextPhase}>Next Phase</button>
-                <button>End Game</button>
+                <div className='util-info'>
+                    <button onClick={handleShuffleRoles}>Shuffle Roles</button>
+                    <button onClick={handleResetGame}>Reset Game</button>
+                    <button onClick={handleNextPhase}>Next Phase</button>
+                    <button>End Game</button>
+                </div>
             </div>
         </div>
     )
