@@ -1,11 +1,9 @@
-
+// This thing can be refactored I lost the reason I did it this way.
 const NextPhaseButton = ({phase, dispatch}) => {
     switch(phase) {
         case 'setup':
             return (
                 <button onClick={() => {
-                    console.log(`[${phase}] Start Game pressed...`)
-                    dispatch({type: 'assign_roles'})
                     dispatch({type: 'next_phase'}
                     )
                 }}

@@ -1,6 +1,5 @@
-import {useState} from 'react'
 
-const Night = ({actionQueue, dispatch}) => {
+const Night = ({action, dispatch}) => {
     /*
     * action schema:
     * - name
@@ -9,17 +8,8 @@ const Night = ({actionQueue, dispatch}) => {
     * - background colors or css classes?
     */
 
-    // This feels iffy.
-    const [queueIndex, setQueueIndex] = useState(0);
-    const action = actionQueue[queueIndex]
-
     const handleNextClick = () => {
-        if(queueIndex >= actionQueue.length - 1) {
-            dispatch({type: 'next_phase'})
-        }
-        else {
-            setQueueIndex(queueIndex + 1)
-        }
+        dispatch({type: 'next_action'})
     }
 
     const renderHiddenMessage = () => {

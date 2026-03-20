@@ -16,6 +16,7 @@ const Grimoire = ({game, dispatch}) => {
                 dispatch={dispatch}
             />
             {/* <button onClick={handleStartGame} disabled={game.players.length < 5 || game.players.length > 15}>{renderButtonText()}</button> */}
+            {/* this button should probably be moved into the game container???  */}
             <NextPhaseButton
                 phase={game.phase}
                 dispatch={dispatch}

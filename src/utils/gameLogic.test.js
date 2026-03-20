@@ -1,3 +1,4 @@
+import { allScripts } from '../data/scripts/allScripts';
 import {assignRoles, gameReducer, initialGame} from './gameLogic'
 import {expect, test, describe} from 'vitest';
 
@@ -16,6 +17,26 @@ const sampleRoles = [
     {name: 't4', type: 'minion'},
     {name: 't5', type: 'demon'}
 ]
+
+const sampleScript = {
+    name: 'Test Script',
+    roles: sampleRoles,
+    firstNight: ['Dusk', 'Minion Info', 'Demon Info', 't2', 't4', 'Dawn'],
+    otherNight: []
+}
+
+const sampleGame = {
+    phase: 'setup',
+    overlay: 'main',
+    players: samplePlayers.map( (p, index) => {
+        return {
+            ...p,
+            role: sampleRoles[index]
+        }
+    }),
+    script: sampleScript,
+    roles: sampleRoles
+}
 
 const samplePlayersWithRoles = assignRoles(samplePlayers, sampleRoles)
 
@@ -81,9 +102,23 @@ describe('gameLogic', () => {
     })
 
     test('next_phase preGame -> firstNight', () => {
-        const game = gameReducer({phase: 'preGame'}, {type: 'next_phase'})
+        const game = gameReducer({...sampleGame, phase: 'preGame'}, {type: 'next_phase'})
 
         expect(game.phase).toEqual('firstNight')
+    })
+
+    // how do I test this has created actions properly?
+    test('next_phase preGame -> firstNight actionQueue', () => {
+        const game = gameReducer({...sampleGame, phase: 'preGame'}, {type: 'next_phase'})
+
+        expect(game.actionQueue).toEqual([
+            'Dusk',
+            'Minion Info',
+            'Demon Info',
+            {name: 'bbb', role: {name: 't2', type: 'townsfolk'}},
+            {name: 'ddd', role: {name: 't4', type: 'minion'}},
+            'Dawn'
+        ])
     })
 
     test('next_phase firstNight -> day', () => {
@@ -104,5 +139,15 @@ describe('gameLogic', () => {
 
     test('reset_game returns initialGame', () => {
         expect(gameReducer({}, {type: 'reset_game'})).toEqual(initialGame)
+    })
+
+    test('next_action removes the first action', () => {
+        const game = gameReducer({actionQueue: [0,1,2]}, {type: 'next_action'})
+        expect(game.actionQueue).toEqual([1,2,])
+    })
+
+    test('next_action with no actions returns empty list', () => {
+        const game = gameReducer({actionQueue: []}, {type: 'next_action'})
+        expect(game.actionQueue).toEqual([])
     })
 })

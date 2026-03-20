@@ -36,8 +36,10 @@ export function gameReducer(game, action) {
                 players: assignRoles(game.players, game.roles)
             }
         }
-        // This should be set_phase? instead?
         case 'next_phase': {
+            // right now this handles game state transitions in the current phase
+            // perhaps it would make more sense to transition first and switch on that
+            // so 'preGame' would be responsible for setting up preGame actions
             const np = nextPhase[game.phase]
             switch(game.phase) {
                 case 'setup':
@@ -46,21 +48,19 @@ export function gameReducer(game, action) {
                         ...game,
                         phase: np,
                         players: players,
-                        actionQueue: players.map(player => {
-                            return {
-                                playerName: player.name,
-                                visibleMessage: '',
-                                hiddenMessage: `${player.role.name} - ${player.role.type} ${player.role.description}`
-                            }
-                        })
+                        overlay: 'main',
+                        actionQueue: createPreGameActions(players)
                     }
                 case 'preGame':
                     // first night phase
                     // map something with filter on players.roles v action 
                     return {
                         ...game,
-                        phase: np
+                        phase: np,
+                        overlay: 'main',
+                        actionQueue: createFirstNightActions(game.players, game.script.firstNight)
                     }
+                case 'day':
                 default:
                     return {
                         ...game,
@@ -70,6 +70,12 @@ export function gameReducer(game, action) {
         }
         case 'reset_game': {
             return initialGame
+        }
+        case 'next_action': {
+            return {
+                ...game,
+                actionQueue: game.actionQueue ? game.actionQueue.filter((_, index) => index !== 0) : []
+            }
         }
         default: 
             return game;
@@ -151,3 +157,49 @@ export const initialGame = {
     script: allScripts[0],
     roles: allScripts[0].roles
 };
+
+const createPreGameActions = (players) => {
+    return players.map(player => {
+        return {
+            playerName: player.name,
+            visibleMessage: '',
+            hiddenMessage: `${player.role.name} - ${player.role.type} ${player.role.description}`
+        }
+    })
+}
+
+/*
+    Special actions:
+    - 'Minion Info'
+    - 'Demon Info'
+    - 'Dusk'
+    - 'Dawn'
+*/
+const specialActions = ['Minion Info', 'Demon Info', 'Dusk', 'Dawn']
+const createFirstNightActions = (players, night) => {
+    // accumulator -> new empty list []
+    return night.reduce((acc, currentValue) => {
+        const sa = specialActions.find( action => action === currentValue)
+        if(sa) {
+            return [
+                ...acc,
+                sa
+            ]
+        }
+
+        const player = players.find(player => player.role.name === currentValue)
+        if(player) {
+            return [
+                ...acc, 
+                player
+            ]
+        }
+        
+        return acc
+    }, [])
+}
+
+const createOtherNightActions = () => {
+    return []
+}
+

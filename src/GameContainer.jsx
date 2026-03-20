@@ -12,7 +12,6 @@ export default function GameContainer() {
     // the add player input and buttons could go in to 
     // the main display instead of the grimoire itself.
     const renderGame = () => {
-        console.log(`${game.overlay} - ${game.phase}`)
         if(game.overlay === 'main') {
             switch(game.phase) {
                 case 'setup':
@@ -26,9 +25,17 @@ export default function GameContainer() {
                 case 'preGame':
                 case 'firstNight':
                 case 'otherNight':
+                    if (game.actionQueue.length === 0) {
+                        return (
+                            <button onClick={() => dispatch({type: 'next_phase'})}
+                            >
+                                Placeholder Transition Button Text
+                            </button>
+                        )
+                    }
                     return (
                         <Night 
-                            actionQueue={game.actionQueue}
+                            action={game.actionQueue[0]}
                             dispatch={dispatch}
                         />
                     )
