@@ -7,10 +7,12 @@ const Grimoire = ({game, dispatch}) => {
 
     return (
         <div>
+            {game.phase === 'setup' && (
             <ScriptDisplay 
                 selectedScript={game.script}
                 dispatch={dispatch}
             />
+            )}
             <PlayersDisplay
                 players={game.players}
                 dispatch={dispatch}

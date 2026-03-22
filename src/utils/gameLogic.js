@@ -23,7 +23,7 @@ export function gameReducer(game, action) {
         case 'add_player': {
             return {
                 ...game,
-                players: [...game.players, {name: action.playerName}]
+                players: [...game.players, {name: action.playerName, dead: false}]
             }
         }
         case 'assign_roles': {
@@ -54,11 +54,13 @@ export function gameReducer(game, action) {
                 case 'preGame':
                     // first night phase
                     // map something with filter on players.roles v action 
+                    const actions = createNightActions(game.players, specialActions, game.script.firstNight)
+                    console.log(actions)
                     return {
                         ...game,
                         phase: np,
                         overlay: 'main',
-                        actionQueue: createFirstNightActions(game.players, game.script.firstNight)
+                        actionQueue: createNightActions(game.players, specialActions, game.script.firstNight)
                     }
                 case 'day':
                 default:
@@ -75,6 +77,40 @@ export function gameReducer(game, action) {
             return {
                 ...game,
                 actionQueue: game.actionQueue ? game.actionQueue.filter((_, index) => index !== 0) : []
+            }
+        }
+        case 'mark_dead': {
+            return {
+                ...game,
+                players: game.players.map(player => {
+                    return {...player,
+                        dead: player.name === action.playerName ? true : false
+                    }
+                })
+            }
+        }
+        case 'use_dead_vote': {
+            const updatedPlayers = game.players.map(player => {
+                if(player.name === action.playerName) {
+                    if (player.dead === false) {
+                        throw Error(`use_dead_vote - player: ${playerName} is not dead.`)
+                    }
+                    if (player.deadVoteUsed) {
+                        throw Error(`use_dead_vote - player: ${playerName} has already used their dead vote.`)
+                    }
+
+                    return {
+                        ...player,
+                        deadVoteUsed: true
+                    }
+                }
+
+                return player
+            })
+
+            return {
+                ...game, 
+                players: updatedPlayers
             }
         }
         default: 
@@ -175,31 +211,35 @@ const createPreGameActions = (players) => {
     - 'Dusk'
     - 'Dawn'
 */
-const specialActions = ['Minion Info', 'Demon Info', 'Dusk', 'Dawn']
-const createFirstNightActions = (players, night) => {
+const specialActions = [
+    {name: 'Minion Info', vm: 'Wake up the minion(s) and point to the demon.'}, 
+    {name: 'Demon Info', vm: 'Wake up the demon and point to the minion(s).'}, 
+    {name: 'Dusk', vm: 'The night has begun.'}, 
+    {name: 'Dawn', vm: 'Day shines once more.'}
+]
+const createNightActions = (players, specialActions, night) => {
     // accumulator -> new empty list []
     return night.reduce((acc, currentValue) => {
-        const sa = specialActions.find( action => action === currentValue)
+        
+        const sa = specialActions.find( action => action.name === currentValue)
         if(sa) {
-            return [
-                ...acc,
-                sa
-            ]
+            acc.push({
+                name: sa.name,
+                visibleMessage: sa.vm
+            })
+            return acc
         }
 
         const player = players.find(player => player.role.name === currentValue)
         if(player) {
-            return [
-                ...acc, 
-                player
-            ]
+            acc.push({
+                ...player,
+                visibleMessage: player.role.name + ' ' + player.role.description
+            }
+            )
+            return acc
         }
         
         return acc
     }, [])
 }
-
-const createOtherNightActions = () => {
-    return []
-}
-

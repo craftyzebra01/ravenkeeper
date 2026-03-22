@@ -1,5 +1,16 @@
-- update the script order display to indicate role type.
-- consider including the role description.
+## NEXT UP
+- clean up the night -> day transitions in the ui.
+- menu button
+    - reset button in here
+    - script selection
+- game over screen
+- make the last action of Night the next phase button 
+    rather than another separate screen after that? 
+    Maybe keep for preGame since the others have 'Day' 
+    as the last action.
+- persist game state so refreshing doesn't lose it.
+- add tailwind styling
+    - installation complete.
 
 
 - GAME FLOW
@@ -44,3 +55,5 @@ Open Questions
 - Can I have players just learn their roles at night??
 - pass phone in a circle and have them select??
 - or pass in circle with pre-determined order. 
+- Add help text or tooltips?
+    - like washerwoman (flip to the grimoire, point to a role, point to 2 people)?

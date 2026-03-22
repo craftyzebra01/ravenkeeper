@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Player from "./Player"
+import DeathButton from "./DeathButton"
 
 const PlayersDisplay = ({players, dispatch}) => {
     const [playerName, setPlayerName] = useState('')
@@ -27,6 +28,12 @@ const PlayersDisplay = ({players, dispatch}) => {
                             />
 
                             <div className='player-setup-buttons'>
+                                <DeathButton 
+                                    playerName={player.name}
+                                    dead={player.dead}
+                                    deadVoteUsed={player.deadVoteUsed}
+                                    dispatch={dispatch}
+                                />
                                 <button> 
                                     X
                                 </button>

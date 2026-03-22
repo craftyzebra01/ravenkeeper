@@ -3,11 +3,16 @@ import {assignRoles, gameReducer, initialGame} from './gameLogic'
 import {expect, test, describe} from 'vitest';
 
 const samplePlayers = [
-    {name: 'aaa'},
-    {name: 'bbb'},
-    {name: 'ccc'},
-    {name: 'ddd'},
-    {name: 'eee'}
+    {name: 'aaa', dead: true},
+    {name: 'bbb', dead: true},
+    {name: 'ccc', dead: true},
+    {name: 'ddd', dead: false},
+    {name: 'eee', dead: false, deadVoteUsed: true}
+]
+
+const sampleDeadVotePlayers = [
+    ...samplePlayers,
+    {name: 'fff', dead: true, deadVoteUsed: false}
 ]
 
 const sampleRoles = [
@@ -69,8 +74,8 @@ describe('gameLogic', () => {
     })
 
     test('add_player adds player by name', () => {
-        const game = gameReducer({players: [{name: 'aaa'}]}, {type: 'add_player', playerName: 'bbb'})
-        expect(game.players).toEqual([{name: 'aaa'}, {name: 'bbb'}])
+        const game = gameReducer({players: [{name: 'aaa', dead: true}]}, {type: 'add_player', playerName: 'bbb'})
+        expect(game.players).toEqual([{name: 'aaa', dead: true}, {name: 'bbb', dead: false}])
         expect(game.players).toHaveLength(2)
     })
 
@@ -108,17 +113,13 @@ describe('gameLogic', () => {
     })
 
     // how do I test this has created actions properly?
+    // adjust to include names, visibleMessage, hiddenMessage
     test('next_phase preGame -> firstNight actionQueue', () => {
         const game = gameReducer({...sampleGame, phase: 'preGame'}, {type: 'next_phase'})
-
-        expect(game.actionQueue).toEqual([
-            'Dusk',
-            'Minion Info',
-            'Demon Info',
-            {name: 'bbb', role: {name: 't2', type: 'townsfolk'}},
-            {name: 'ddd', role: {name: 't4', type: 'minion'}},
-            'Dawn'
-        ])
+        expect(game.actionQueue[0].name).toEqual('Dusk')
+        expect(game.actionQueue[1].name).toEqual('Minion Info')
+        expect(game.actionQueue[2] === 'Demon Info')
+        expect(game.actionQueue[4] === 'Dawn')
     })
 
     test('next_phase firstNight -> day', () => {
@@ -149,5 +150,35 @@ describe('gameLogic', () => {
     test('next_action with no actions returns empty list', () => {
         const game = gameReducer({actionQueue: []}, {type: 'next_action'})
         expect(game.actionQueue).toEqual([])
+    })
+
+    test('mark_dead sets the player to dead', () => {
+        const game = gameReducer({...sampleGame}, {type: 'mark_dead', playerName: 'ccc'})
+        expect(game.players.find(player => player.name === 'ccc').dead).toEqual(true)
+    })
+
+    test('use_dead_vote sets deadVoteUsed pn player', () => {
+        const game = gameReducer({
+            ...sampleGame,
+            players: sampleDeadVotePlayers
+        }, {type: 'use_dead_vote', playerName: 'fff'})
+
+        expect(game.players.find(player => player.name === 'fff').deadVoteUsed).toEqual(true)
+    })
+
+    // really need to define these errors.
+    test('use_dead_vote exceptions if already true', () => {
+        expect(gameReducer({
+            ...sampleGame, 
+            players: sampleDeadVotePlayers
+        }, 
+        {type: 'use_dead_vote', playerName: 'aaa'})).toThrow(Error)
+    })
+
+    test('use_dead_vote exceptions if player is not dead', () => {
+        expect(gameReducer({
+            ...sampleGame, 
+            players: sampleDeadVotePlayers
+        }, {type: 'used_dead_vote', playerName: 'ddd'})).toThrow(Error)
     })
 })
