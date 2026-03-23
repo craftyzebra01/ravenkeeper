@@ -6,24 +6,25 @@ import NextPhaseButton from "./NextPhaseButton";
 const Grimoire = ({game, dispatch}) => {
 
     return (
-        <div>
+        <div className='flex flex-col gap-4'>
             {game.phase === 'setup' && (
-            <ScriptDisplay 
+            <ScriptDisplay
                 selectedScript={game.script}
                 dispatch={dispatch}
             />
             )}
             <PlayersDisplay
                 players={game.players}
-                dispatch={dispatch}
-            />
-            {/* <button onClick={handleStartGame} disabled={game.players.length < 5 || game.players.length > 15}>{renderButtonText()}</button> */}
-            {/* this button should probably be moved into the game container???  */}
-            <NextPhaseButton
                 phase={game.phase}
                 dispatch={dispatch}
             />
-            <button onClick={() => {dispatch({type: 'reset_game'})}}>Reset</button>
+            <div className='flex gap-2'>
+                <NextPhaseButton
+                    phase={game.phase}
+                    dispatch={dispatch}
+                />
+                <button className='px-4 py-2 rounded-lg text-sm bg-slate-800 text-slate-400 hover:bg-slate-700 transition-colors' onClick={() => {dispatch({type: 'reset_game'})}}>Reset</button>
+            </div>
         </div>
     )
 }

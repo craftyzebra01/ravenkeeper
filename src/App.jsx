@@ -65,6 +65,7 @@ export default function App() {
                         <ScriptOrder
                             firstNight={game.script.firstNight}
                             otherNight={game.script.otherNight}
+                            roles={game.script.roles}
                         />
                     </div>
                 )
@@ -78,15 +79,18 @@ export default function App() {
     }
 
     return (
-        <div className='min-h-screen bg-slate-950 p-6 flex flex-col items-center text-white'>
-            <div className='w-full max-w-md'>
-                <h2>Phase - {game.phase}</h2>
-                <h3>Overlay - {game.overlay}</h3>
-                {renderGame()}
-                <div className='menu'>
-                    <button onClick={() => dispatch({type: 'set_overlay', overlay: 'grimoire'})}>Grimoire</button>
-                    <button onClick={() => dispatch({type: 'set_overlay', overlay: 'role_info'})}>Roles</button>
-                    <button onClick={() => dispatch({type: 'set_overlay', overlay: 'script_order'})}>Script Order</button>
+        <div className='min-h-screen bg-slate-950 text-white flex flex-col items-center p-6'>
+            <div className='w-full max-w-2xl flex flex-col gap-4'>
+                <h1 className='text-center text-lg font-semibold text-slate-300 tracking-wide'>
+                    {{ setup: 'Setup', preGame: 'Pre-Game', firstNight: 'First Night', day: 'Day', otherNight: 'Night' }[game.phase]}
+                </h1>
+                <div className='flex-1'>
+                    {renderGame()}
+                </div>
+                <div className='flex gap-2 mt-4'>
+                    <button className='flex-1 py-2 rounded-lg text-sm font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors' onClick={() => dispatch({type: 'set_overlay', overlay: 'grimoire'})}>Grimoire</button>
+                    <button className='flex-1 py-2 rounded-lg text-sm font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors' onClick={() => dispatch({type: 'set_overlay', overlay: 'role_info'})}>Roles</button>
+                    <button className='flex-1 py-2 rounded-lg text-sm font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors' onClick={() => dispatch({type: 'set_overlay', overlay: 'script_order'})}>Script Order</button>
                 </div>
             </div>
         </div>

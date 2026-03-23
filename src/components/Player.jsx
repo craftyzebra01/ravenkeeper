@@ -8,14 +8,10 @@ const Player = ({name, roleName, roleType}) => {
     //     </div>
     // )
     return (
-        <div style={{ textAlign: 'left'}}>
-            <div>
-                {name}
-            </div>
+        <div>
+            <div className='font-medium text-white'>{name}</div>
             {roleType && roleName && (
-                <div>
-                    {roleType} - {roleName}
-                </div>
+                <div className='text-xs text-slate-400'>{roleType} — {roleName}</div>
             )}
         </div>
     )

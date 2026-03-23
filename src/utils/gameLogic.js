@@ -84,7 +84,7 @@ export function gameReducer(game, action) {
                 ...game,
                 players: game.players.map(player => {
                     return {...player,
-                        dead: player.name === action.playerName ? true : false
+                        dead: player.name === action.playerName ? true : player.dead
                     }
                 })
             }
@@ -199,7 +199,8 @@ const createPreGameActions = (players) => {
         return {
             playerName: player.name,
             visibleMessage: '',
-            hiddenMessage: `${player.role.name} - ${player.role.type} ${player.role.description}`
+            hiddenMessage: `${player.role.name} - ${player.role.type} ${player.role.description}`,
+            role: player.role
         }
     })
 }

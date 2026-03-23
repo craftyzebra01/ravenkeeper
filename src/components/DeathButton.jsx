@@ -24,8 +24,16 @@ const DeathButton = ({playerName, dead, deadVoteUsed, dispatch}) => {
         return 'Dead Vote'
     }
 
+    const btnClass = !dead
+        ? 'bg-rose-800 hover:bg-rose-700 text-white'
+        : deadVoteUsed
+            ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
+            : 'bg-amber-700 hover:bg-amber-600 text-white';
+
     return (
-        <button onClick={handleClick}>{renderButtonText()}</button>
+        <button onClick={handleClick} className={`px-3 py-1 rounded text-xs font-medium transition-colors ${btnClass}`}>
+            {renderButtonText()}
+        </button>
     )
 }
 
