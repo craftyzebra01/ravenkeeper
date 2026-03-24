@@ -41,10 +41,12 @@ const PlayersDisplay = ({players, phase, dispatch}) => {
                                         X
                                     </button>
                                 )}
-                                <div className='flex flex-col gap-0.5'>
-                                    <button className='w-7 h-5 flex items-center justify-center rounded bg-slate-700 text-slate-400 hover:bg-slate-600 text-xs transition-colors'>^</button>
-                                    <button className='w-7 h-5 flex items-center justify-center rounded bg-slate-700 text-slate-400 hover:bg-slate-600 text-xs transition-colors'>v</button>
-                                </div>
+                                {phase === 'setup' && (
+                                    <div className='flex flex-col gap-0.5'>
+                                        <button onClick={() => dispatch({type: 'move_player', playerName: player.name, direction: 'up'})} className='w-7 h-5 flex items-center justify-center rounded bg-slate-700 text-slate-400 hover:bg-slate-600 text-xs transition-colors'>^</button>
+                                        <button onClick={() => dispatch({type: 'move_player', playerName: player.name, direction: 'down'})} className='w-7 h-5 flex items-center justify-center rounded bg-slate-700 text-slate-400 hover:bg-slate-600 text-xs transition-colors'>v</button>
+                                    </div>
+                                )}
                             </div>
                         </li>
                 ))}

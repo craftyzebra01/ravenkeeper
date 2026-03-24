@@ -70,6 +70,14 @@ export function gameReducer(game, action) {
                     }
             }
         }
+        case 'move_player': {
+            const players = [...game.players];
+            const i = players.findIndex(p => p.name === action.playerName);
+            const j = action.direction === 'up' ? i - 1 : i + 1;
+            if (j < 0 || j >= players.length) return game;
+            [players[i], players[j]] = [players[j], players[i]];
+            return { ...game, players };
+        }
         case 'reset_game': {
             return initialGame
         }
