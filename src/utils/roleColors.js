@@ -1,6 +1,6 @@
 export const roleTypeBg = {
-    townsfolk: 'bg-blue-950',
-    outsider:  'bg-blue-800',
-    minion:    'bg-red-800',
-    demon:     'bg-red-950',
+    townsfolk: 'bg-blue-700',
+    outsider:  'bg-blue-900',
+    minion:    'bg-red-900',
+    demon:     'bg-red-700',
 }

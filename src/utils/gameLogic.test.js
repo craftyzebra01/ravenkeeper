@@ -65,6 +65,11 @@ describe('gameLogic', () => {
         expect(game.overlay === overlay).toBeTruthy()
     })
 
+    test('set_overlay toggles back to main when same overlay is set', () => {
+        const game = gameReducer({overlay: 'grimoire'}, {type: 'set_overlay', overlay: 'grimoire'})
+        expect(game.overlay).toEqual('main')
+    })
+
     test('del_player removes player by name', () => {
         const game = gameReducer({players: [{name: 'aaa'}, {name: 'bbb'}]}, {type: 'del_player', playerName: 'aaa'})
         expect(game.players.find(player => player.name === 'aaa')).toBeUndefined()
@@ -167,18 +172,58 @@ describe('gameLogic', () => {
     })
 
     // really need to define these errors.
-    test('use_dead_vote exceptions if already true', () => {
-        expect(gameReducer({
-            ...sampleGame, 
-            players: sampleDeadVotePlayers
-        }, 
-        {type: 'use_dead_vote', playerName: 'aaa'})).toThrow(Error)
+    test('use_dead_vote throws if dead vote already used', () => {
+        expect(() => gameReducer({
+            ...sampleGame,
+            players: [{name: 'zzz', dead: true, deadVoteUsed: true}]
+        },
+        {type: 'use_dead_vote', playerName: 'zzz'})).toThrow(Error)
     })
 
-    test('use_dead_vote exceptions if player is not dead', () => {
-        expect(gameReducer({
-            ...sampleGame, 
+    test('use_dead_vote throws if player is not dead', () => {
+        expect(() => gameReducer({
+            ...sampleGame,
             players: sampleDeadVotePlayers
-        }, {type: 'used_dead_vote', playerName: 'ddd'})).toThrow(Error)
+        }, {type: 'use_dead_vote', playerName: 'ddd'})).toThrow(Error)
+    })
+
+    test('move_player moves player up', () => {
+        const game = gameReducer(
+            {players: [{name: 'aaa'}, {name: 'bbb'}, {name: 'ccc'}]},
+            {type: 'move_player', playerName: 'bbb', direction: 'up'}
+        )
+        expect(game.players.map(p => p.name)).toEqual(['bbb', 'aaa', 'ccc'])
+    })
+
+    test('move_player moves player down', () => {
+        const game = gameReducer(
+            {players: [{name: 'aaa'}, {name: 'bbb'}, {name: 'ccc'}]},
+            {type: 'move_player', playerName: 'bbb', direction: 'down'}
+        )
+        expect(game.players.map(p => p.name)).toEqual(['aaa', 'ccc', 'bbb'])
+    })
+
+    test('move_player does nothing when moving first player up', () => {
+        const players = [{name: 'aaa'}, {name: 'bbb'}, {name: 'ccc'}]
+        const game = gameReducer(
+            {players},
+            {type: 'move_player', playerName: 'aaa', direction: 'up'}
+        )
+        expect(game.players.map(p => p.name)).toEqual(['aaa', 'bbb', 'ccc'])
+    })
+
+    test('move_player does nothing when moving last player down', () => {
+        const players = [{name: 'aaa'}, {name: 'bbb'}, {name: 'ccc'}]
+        const game = gameReducer(
+            {players},
+            {type: 'move_player', playerName: 'ccc', direction: 'down'}
+        )
+        expect(game.players.map(p => p.name)).toEqual(['aaa', 'bbb', 'ccc'])
+    })
+
+    test('unknown action type returns game unchanged', () => {
+        const state = {phase: 'setup', players: [{name: 'aaa'}]}
+        const game = gameReducer(state, {type: 'not_a_real_action'})
+        expect(game).toEqual(state)
     })
 })
