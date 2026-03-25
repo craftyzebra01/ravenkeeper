@@ -22,6 +22,7 @@ const Grimoire = ({game, dispatch}) => {
                 <NextPhaseButton
                     phase={game.phase}
                     dispatch={dispatch}
+                    playerCount={game.players.length}
                 />
                 <button className='px-4 py-2 rounded-lg text-sm bg-slate-800 text-slate-400 hover:bg-slate-700 transition-colors' onClick={() => {dispatch({type: 'reset_game'})}}>Reset</button>
             </div>

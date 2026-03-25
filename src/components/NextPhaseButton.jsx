@@ -1,14 +1,23 @@
 // This thing can be refactored I lost the reason I did it this way.
-const NextPhaseButton = ({phase, dispatch}) => {
+const NextPhaseButton = ({phase, dispatch, playerCount}) => {
     switch(phase) {
-        case 'setup':
+        case 'setup': {
+            const disabled = playerCount < 5 || playerCount > 15;
+            const title = playerCount < 5
+                ? `Need at least 5 players (${playerCount}/5)`
+                : playerCount > 15
+                ? `Too many players — max is 15 (${playerCount}/15)`
+                : undefined;
             return (
-                <button className='flex-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium text-sm transition-colors' onClick={() => {
-                    dispatch({type: 'next_phase'})
-                }}>
+                <button
+                    className={`flex-1 px-4 py-2 rounded-lg font-medium text-sm transition-colors ${disabled ? 'bg-slate-700 text-slate-500 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-500 text-white'}`}
+                    onClick={() => { if (!disabled) dispatch({type: 'next_phase'}) }}
+                    title={title}
+                >
                     Start Game
                 </button>
             )
+        }
         case 'preGame':
             return (
                 <button className='flex-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium text-sm transition-colors' onClick={() => {
