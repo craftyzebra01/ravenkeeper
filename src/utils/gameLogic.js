@@ -186,18 +186,10 @@ export const isBetween = (val, min, max) => {
 
 const roleMapping = ["townsfolk", "outsider", "minion", "demon"]
 
-const samplePlayers = [
-    {name: 'Patrick'},
-    {name: 'Stephanie'},
-    {name: 'Dennis'},
-    {name: 'John'},
-    {name: 'Hee Yeon'},
-]
-
 export const initialGame = {
     phase: 'setup',
     overlay: 'main', // [grimoire,roleInfo,scriptOrder,night(?)]
-    players: samplePlayers,
+    players: [],
     script: allScripts[0],
     roles: allScripts[0].roles
 };

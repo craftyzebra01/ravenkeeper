@@ -6,8 +6,23 @@ import RoleInfo from './components/RoleInfo';
 import ScriptOrder from './components/ScriptOrder';
 import Night from './components/Night'
 
+const STORAGE_KEY = 'ravenkeeper_game';
+
+function loadGame() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : initialGame;
+    } catch {
+        return initialGame;
+    }
+}
+
 export default function App() {
-    const [game, dispatch] = useReducer(gameReducer, initialGame);
+    const [game, dispatch] = useReducer(gameReducer, undefined, loadGame);
+
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(game));
+    }, [game]);
 
     // the add player input and buttons could go in to 
     // the main display instead of the grimoire itself.
