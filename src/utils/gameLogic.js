@@ -63,6 +63,11 @@ export function gameReducer(game, action) {
                         actionQueue: createNightActions(game.players, specialActions, game.script.firstNight)
                     }
                 case 'day':
+                    return {
+                        ...game,
+                        phase: np,
+                        actionQueue: createNightActions(game.players, specialActions, game.script.otherNight)
+                    }
                 default:
                     return {
                         ...game,
@@ -82,10 +87,19 @@ export function gameReducer(game, action) {
             return initialGame
         }
         case 'next_action': {
-            return {
-                ...game,
-                actionQueue: game.actionQueue ? game.actionQueue.filter((_, index) => index !== 0) : []
+            const remaining = game.actionQueue ? game.actionQueue.slice(1) : [];
+            if (remaining.length === 0) {
+                const np = nextPhase[game.phase];
+                if (game.phase === 'preGame') {
+                    return {
+                        ...game,
+                        phase: np,
+                        actionQueue: createNightActions(game.players, specialActions, game.script.firstNight)
+                    };
+                }
+                return { ...game, phase: np, actionQueue: [] };
             }
+            return { ...game, actionQueue: remaining };
         }
         case 'mark_dead': {
             return {
@@ -195,14 +209,14 @@ export const initialGame = {
 };
 
 const createPreGameActions = (players) => {
-    return players.map(player => {
-        return {
-            playerName: player.name,
-            visibleMessage: '',
-            hiddenMessage: `${player.role.name} - ${player.role.type} ${player.role.description}`,
-            role: player.role
-        }
-    })
+    const actions = players.map(player => ({
+        playerName: player.name,
+        visibleMessage: '',
+        hiddenMessage: `${player.role.name} - ${player.role.type} ${player.role.description}`,
+        role: player.role
+    }));
+    actions.push({ name: 'Begin First Night', visibleMessage: 'All players have seen their roles. Begin the first night.' });
+    return actions;
 }
 
 /*
@@ -220,7 +234,7 @@ const specialActions = [
 ]
 const createNightActions = (players, specialActions, night) => {
     // accumulator -> new empty list []
-    return night.reduce((acc, currentValue) => {
+    const actions = night.reduce((acc, currentValue) => {
         
         const sa = specialActions.find( action => action.name === currentValue)
         if(sa) {
@@ -242,5 +256,6 @@ const createNightActions = (players, specialActions, night) => {
         }
         
         return acc
-    }, [])
+    }, []);
+    return actions;
 }

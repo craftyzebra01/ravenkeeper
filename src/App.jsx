@@ -40,16 +40,8 @@ export default function App() {
                 case 'preGame':
                 case 'firstNight':
                 case 'otherNight':
-                    if (game.actionQueue.length === 0) {
-                        return (
-                            <button onClick={() => dispatch({type: 'next_phase'})}
-                            >
-                                Placeholder Transition Button Text
-                            </button>
-                        )
-                    }
                     return (
-                        <Night 
+                        <Night
                             action={game.actionQueue[0]}
                             dispatch={dispatch}
                         />
