@@ -3,7 +3,7 @@ import { roleTypeBg } from '../utils/roleColors';
 
 const specialBg = 'bg-slate-700';
 
-const ScriptOrder = ({firstNight, otherNight, roles}) => {
+const ScriptOrder = ({firstNight, otherNight}) => {
     const [viewFirst, setViewFirst] = useState(true);
 
     const handleFlipScript = () => {
@@ -34,12 +34,11 @@ const ScriptOrder = ({firstNight, otherNight, roles}) => {
             </div>
             <ul className='flex flex-col gap-2'>
                 {(viewFirst ? firstNight : otherNight).map((step, index) => {
-                    const role = roles?.find(r => r.name === step);
-                    const bg = role ? (roleTypeBg[role.type] ?? specialBg) : specialBg;
+                    const bg = step?.team ? (roleTypeBg[step.team] ?? specialBg) : specialBg;
                     return (
-                        <li key={step || index} className={`rounded-lg px-4 py-3 text-sm text-white ${bg}`}>
+                        <li key={step?.name || index} className={`rounded-lg px-4 py-3 text-sm text-white ${bg}`}>
                             <span className='text-white/40 mr-3 text-xs'>{index + 1}</span>
-                            {step}
+                            {step?.name}
                         </li>
                     );
                 })}

@@ -1,11 +1,18 @@
 import {allScripts} from '../data/scripts/allScripts'
+import roles from '../data/roles.json'
+
+export const mapToRoleObjects = (names, roles) => names.map(name => roles.find(r => r.name === name))
 
 export function gameReducer(game, action) {
     switch (action.type) {
         case 'set_script': {
+            const script = allScripts.find(s => s.name == action.scriptName)
             return {
-                ...game, 
-                script: allScripts.find(s => s.name == action.scriptName)
+                ...game,
+                script,
+                roles: mapToRoleObjects(script.roles, roles),
+                firstNight: mapToRoleObjects(script.firstNight, roles),
+                otherNight: mapToRoleObjects(script.otherNight, roles)
             }
         }
         case 'set_overlay': {
@@ -52,21 +59,17 @@ export function gameReducer(game, action) {
                         actionQueue: createPreGameActions(players)
                     }
                 case 'preGame':
-                    // first night phase
-                    // map something with filter on players.roles v action 
-                    const actions = createNightActions(game.players, specialActions, game.script.firstNight)
-                    console.log(actions)
                     return {
                         ...game,
                         phase: np,
                         overlay: 'main',
-                        actionQueue: createNightActions(game.players, specialActions, game.script.firstNight)
+                        actionQueue: createNightActions(game.players, specialActions, game.firstNight)
                     }
                 case 'day':
                     return {
                         ...game,
                         phase: np,
-                        actionQueue: createNightActions(game.players, specialActions, game.script.otherNight)
+                        actionQueue: createNightActions(game.players, specialActions, game.otherNight)
                     }
                 default:
                     return {
@@ -94,7 +97,7 @@ export function gameReducer(game, action) {
                     return {
                         ...game,
                         phase: np,
-                        actionQueue: createNightActions(game.players, specialActions, game.script.firstNight)
+                        actionQueue: createNightActions(game.players, specialActions, game.firstNight)
                     };
                 }
                 return { ...game, phase: np, actionQueue: [] };
@@ -205,14 +208,16 @@ export const initialGame = {
     overlay: 'main', // [grimoire,roleInfo,scriptOrder,night(?)]
     players: [],
     script: allScripts[0],
-    roles: allScripts[0].roles
+    roles: mapToRoleObjects(allScripts[0].roles, roles),
+    firstNight: mapToRoleObjects(allScripts[0].firstNight, roles),
+    otherNight: mapToRoleObjects(allScripts[0].otherNight, roles)
 };
 
 const createPreGameActions = (players) => {
     const actions = players.map(player => ({
         playerName: player.name,
         visibleMessage: '',
-        hiddenMessage: `${player.role.name} - ${player.role.type} ${player.role.description}`,
+        hiddenMessage: `${player.role.name} - ${player.role.team} ${player.role.ability}`,
         role: player.role
     }));
     actions.push({ name: 'Begin First Night', visibleMessage: 'All players have seen their roles. Begin the first night.' });
@@ -249,7 +254,7 @@ const createNightActions = (players, specialActions, night) => {
         if(player) {
             acc.push({
                 ...player,
-                visibleMessage: player.role.name + ' ' + player.role.description
+                visibleMessage: player.role.name + ' ' + player.role.ability
             }
             )
             return acc

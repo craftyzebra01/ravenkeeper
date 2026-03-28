@@ -1,5 +1,6 @@
 import { allScripts } from '../data/scripts/allScripts';
-import {assignRoles, gameReducer, initialGame} from './gameLogic'
+import roles from '../data/roles.json';
+import {gameReducer, initialGame, mapToRoleObjects} from './gameLogic'
 import {expect, test, describe} from 'vitest';
 
 const samplePlayers = [
@@ -40,20 +41,27 @@ const sampleGame = {
         }
     }),
     script: sampleScript,
-    roles: sampleRoles
+    roles: sampleRoles,
+    firstNight: sampleScript.firstNight,
+    otherNight: sampleScript.otherNight
 }
 
-const samplePlayersWithRoles = assignRoles(samplePlayers, sampleRoles)
-
 describe('gameLogic', () => {
-    test('set_script updates script', () => {
+    test('set_script updates script and maps roles', () => {
         const scriptName = 'Bad Moon Rising'
+        const script = allScripts.find(s => s.name === scriptName)
+        const expectedFirstNight = mapToRoleObjects(script.firstNight, roles)
+        const expectedOtherNight = mapToRoleObjects(script.otherNight, roles)
+
         const game = gameReducer({}, {
             type: 'set_script',
             scriptName: scriptName 
         })
 
-        expect(game.script.name === scriptName).toBeTruthy()
+        expect(game.script.name).toBe(scriptName)
+        expect(game.roles).toEqual(mapToRoleObjects(script.roles, roles))
+        expect(game.firstNight).toEqual(expectedFirstNight)
+        expect(game.otherNight).toEqual(expectedOtherNight)
     })
 
     test('set_overlay', () => {
@@ -108,7 +116,7 @@ describe('gameLogic', () => {
     test('next_phase setup should create actionQueue', () => {
         const game = gameReducer({players: samplePlayers, roles: sampleRoles, phase: 'setup'}, {'type': 'next_phase'})
 
-        expect(game.actionQueue).toHaveLength(5)
+        expect(game.actionQueue).toHaveLength(6)
     })
 
     test('next_phase preGame -> firstNight', () => {
@@ -133,7 +141,7 @@ describe('gameLogic', () => {
         expect(game.phase).toEqual('day')
     })
     test('next_phase day -> otherNight', () => {
-        const game = gameReducer({phase: 'day'}, {type: 'next_phase'})
+        const game = gameReducer({phase: 'day', otherNight: sampleScript.otherNight}, {type: 'next_phase'})
 
         expect(game.phase).toEqual('otherNight')
     })

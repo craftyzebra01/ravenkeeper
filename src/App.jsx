@@ -62,7 +62,7 @@ export default function App() {
                 return (
                     <div>
                         <RoleInfo
-                            roles={game.script.roles}
+                            roles={game.roles}
                         />
                     </div>
                 )
@@ -70,9 +70,9 @@ export default function App() {
                 return (
                     <div>
                         <ScriptOrder
-                            firstNight={game.script.firstNight}
-                            otherNight={game.script.otherNight}
-                            roles={game.script.roles}
+                            firstNight={game.firstNight}
+                            otherNight={game.otherNight}
+                            roles={game.roles}
                         />
                     </div>
                 )
