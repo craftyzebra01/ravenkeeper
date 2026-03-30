@@ -1,7 +1,9 @@
+// This should change and allScripts should be a consistent type.
 import {allScripts} from '../data/scripts/allScripts'
 
 export function gameReducer(game, action) {
     switch (action.type) {
+        // This should be the ONLY place anything interacts with a script itself.
         case 'set_script': {
             return {
                 ...game, 

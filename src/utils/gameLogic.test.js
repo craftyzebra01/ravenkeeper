@@ -46,14 +46,13 @@ const sampleGame = {
 const samplePlayersWithRoles = assignRoles(samplePlayers, sampleRoles)
 
 describe('gameLogic', () => {
-    test('set_script updates script', () => {
-        const scriptName = 'Bad Moon Rising'
+    test('set_script updates parameters', () => {
         const game = gameReducer({}, {
             type: 'set_script',
-            scriptName: scriptName 
+            scriptName: sampleScript.name
         })
 
-        expect(game.script.name === scriptName).toBeTruthy()
+        expect(game.script.name).toEqual()
     })
 
     test('set_overlay', () => {
