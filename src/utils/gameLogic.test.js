@@ -52,7 +52,7 @@ describe('gameLogic', () => {
             scriptName: sampleScript.name
         })
 
-        expect(game.script.name).toEqual()
+        expect(game.script.name).toEqual(sampleScript.name)
     })
 
     test('set_overlay', () => {
