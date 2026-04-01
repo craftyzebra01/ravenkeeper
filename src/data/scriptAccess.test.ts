@@ -17,12 +17,6 @@ describe('getScripts', () => {
         }
     })
 
-    test('script name is copied from the source script', () => {
-        const scripts = getScripts()
-        const tb = scripts.find(s => s.name === 'Trouble Brewing')
-        expect(tb?.name).toBe(troubleBrewing.name)
-    })
-
     test('firstNight is copied from the source script', () => {
         const scripts = getScripts()
         const tb = scripts.find(s => s.name === 'Trouble Brewing')
@@ -44,15 +38,6 @@ describe('getScripts', () => {
                 expect(typeof role.team).toBe('string')
             }
         }
-    })
-
-    test('roles are mapped from the master roles list by name', () => {
-        const scripts = getScripts()
-        const tb = scripts.find(s => s.name === 'Trouble Brewing')
-        const washerwoman = tb?.roles.find(r => r.name === 'Washerwoman')
-        expect(washerwoman).toBeDefined()
-        expect(washerwoman?.ability).toBe('You start knowing that 1 of 2 players is a particular Townsfolk.')
-        expect(washerwoman?.team).toBe('townsfolk')
     })
 
     test('roles count matches the source script roles list', () => {

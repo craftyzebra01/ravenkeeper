@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #334155; /* slate-700 */
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #475569; /* slate-600 */
+    background-clip: padding-box;
+}

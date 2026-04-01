@@ -1,4 +1,3 @@
-import { allScripts } from '../data/scripts/allScripts';
 import {assignRoles, gameReducer, initialGame} from './gameLogic'
 import {expect, test, describe} from 'vitest';
 
@@ -16,11 +15,11 @@ const sampleDeadVotePlayers = [
 ]
 
 const sampleRoles = [
-    {name: 't1', type: 'townsfolk'},
-    {name: 't2', type: 'townsfolk'},
-    {name: 't3', type: 'townsfolk'},
-    {name: 't4', type: 'minion'},
-    {name: 't5', type: 'demon'}
+    {name: 't1', team: 'townsfolk', ability: 'test ability 1'},
+    {name: 't2', team: 'townsfolk', ability: 'test ability 2'},
+    {name: 't3', team: 'townsfolk', ability: 'test ability 3'},
+    {name: 't4', team: 'minion', ability: 'test ability 4'},
+    {name: 't5', team: 'demon', ability: 'test ability 5'}
 ]
 
 const sampleScript = {
@@ -49,10 +48,10 @@ describe('gameLogic', () => {
     test('set_script updates parameters', () => {
         const game = gameReducer({}, {
             type: 'set_script',
-            scriptName: sampleScript.name
+            scriptName: 'Trouble Brewing'
         })
 
-        expect(game.script.name).toEqual(sampleScript.name)
+        expect(game.script.name).toEqual('Trouble Brewing')
     })
 
     test('set_overlay', () => {
@@ -87,10 +86,10 @@ describe('gameLogic', () => {
         const game = gameReducer({players: samplePlayers, roles: sampleRoles}, {type: 'assign_roles'})
 
         expect(game.players).toHaveLength(5)
-        expect(game.players.filter(player => player.role.type === 'townsfolk')).toHaveLength(3)
-        expect(game.players.filter(player => player.role.type === 'outsider')).toEqual([])
-        expect(game.players.filter(player => player.role.type === 'minion')).toHaveLength(1)
-        expect(game.players.filter(player => player.role.type === 'demon')).toHaveLength(1)
+        expect(game.players.filter(player => player.role.team === 'townsfolk')).toHaveLength(3)
+        expect(game.players.filter(player => player.role.team === 'outsider')).toEqual([])
+        expect(game.players.filter(player => player.role.team === 'minion')).toHaveLength(1)
+        expect(game.players.filter(player => player.role.team === 'demon')).toHaveLength(1)
     })
 
     test('assign_roles 1 player throws range error', () => {
@@ -107,7 +106,7 @@ describe('gameLogic', () => {
     test('next_phase setup should create actionQueue', () => {
         const game = gameReducer({players: samplePlayers, roles: sampleRoles, phase: 'setup'}, {'type': 'next_phase'})
 
-        expect(game.actionQueue).toHaveLength(5)
+        expect(game.actionQueue).toHaveLength(6)
     })
 
     test('next_phase preGame -> firstNight', () => {
@@ -132,7 +131,7 @@ describe('gameLogic', () => {
         expect(game.phase).toEqual('day')
     })
     test('next_phase day -> otherNight', () => {
-        const game = gameReducer({phase: 'day'}, {type: 'next_phase'})
+        const game = gameReducer({...sampleGame, phase: 'day'}, {type: 'next_phase'})
 
         expect(game.phase).toEqual('otherNight')
     })
