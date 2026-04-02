@@ -9,7 +9,7 @@ const Night = ({action, dispatch}) => {
         dispatch({type: 'next_action'});
     }
 
-    const hiddenBg = action.role?.type ? roleTypeBg[action.role.type] : 'bg-slate-700';
+    const hiddenBg = action.role?.team ? roleTypeBg[action.role.team] : 'bg-slate-700';
 
     return (
         <div className='flex flex-col items-center gap-6 bg-slate-800 rounded-xl p-8 text-center'>

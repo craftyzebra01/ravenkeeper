@@ -6,9 +6,11 @@ export function gameReducer(game, action) {
     switch (action.type) {
         // This should be the ONLY place anything interacts with a script itself.
         case 'set_script': {
+            const script = scripts.find(s => s.name == action.scriptName) ?? game.script
             return {
-                ...game, 
-                script: scripts.find(s => s.name == action.scriptName)
+                ...game,
+                script,
+                roles: script.roles
             }
         }
         case 'set_overlay': {

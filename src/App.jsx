@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import { gameReducer, initialGame } from './utils/gameLogic'
-import { allScripts } from './data/scripts/allScripts'
 import Grimoire from './components/Grimoire'
 import RoleInfo from './components/RoleInfo';
 import ScriptOrder from './components/ScriptOrder';
@@ -11,7 +10,10 @@ const STORAGE_KEY = 'ravenkeeper_game';
 function loadGame() {
     try {
         const saved = localStorage.getItem(STORAGE_KEY);
-        return saved ? JSON.parse(saved) : initialGame;
+        if (!saved) return initialGame;
+        const game = JSON.parse(saved);
+        const scriptName = game.script?.name ?? initialGame.script.name;
+        return gameReducer(game, {type: 'set_script', scriptName});
     } catch {
         return initialGame;
     }
