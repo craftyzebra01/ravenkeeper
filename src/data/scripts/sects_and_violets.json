@@ -1,0 +1,32 @@
+{
+    "name": "Sects & Violets",
+    "roles": [
+        "Clockmaker",
+        "Dreamer",
+        "Snake Charmer",
+        "Mathematician",
+        "Flowergirl",
+        "Town Crier",
+        "Oracle",
+        "Savant",
+        "Seamstress",
+        "Philosopher",
+        "Artist",
+        "Juggler",
+        "Sage",
+        "Mutant",
+        "Barber",
+        "Sweetheart",
+        "Klutz",
+        "Witch",
+        "Cerenovus",
+        "Pit-Hag",
+        "Evil Twin",
+        "Fang Gu",
+        "Vigormortis",
+        "No Dashii",
+        "Vortox"
+    ],
+    "firstNight": ["Dusk", "Minion Info", "Demon Info", "Philosopher", "Snake Charmer", "Evil Twin", "Witch", "Cerenovus", "Clockmaker", "Dreamer", "Seamstress", "Mathematician", "Dawn"],
+    "otherNight": ["Dusk", "Philosopher", "Snake Charmer", "Witch", "Cerenovus", "Pit-Hag", "Fang Gu", "Vigormortis", "No Dashii", "Vortox", "Barber", "Sweetheart", "Sage", "Dreamer", "Flowergirl", "Town Crier", "Oracle", "Seamstress", "Juggler", "Mathematician", "Dawn"]
+}

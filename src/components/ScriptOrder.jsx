@@ -35,11 +35,17 @@ const ScriptOrder = ({firstNight, otherNight, roles}) => {
             <ul className='flex flex-col gap-2'>
                 {(viewFirst ? firstNight : otherNight).map((step, index) => {
                     const role = roles?.find(r => r.name === step);
-                    const bg = role ? (roleTypeBg[role.type] ?? specialBg) : specialBg;
+                    const bg = role ? (roleTypeBg[role.team] ?? specialBg) : specialBg;
+                    const nightText = role?.night ?? (viewFirst ? role?.firstNight : role?.otherNight);
                     return (
                         <li key={step || index} className={`rounded-lg px-4 py-3 text-sm text-white ${bg}`}>
-                            <span className='text-white/40 mr-3 text-xs'>{index + 1}</span>
-                            {step}
+                            <div className='flex items-baseline gap-3'>
+                                <span className='text-white/40 text-xs shrink-0'>{index + 1}</span>
+                                <div>
+                                    <div>{step}</div>
+                                    {nightText && <div className='text-xs text-white/60 mt-0.5'>{nightText}</div>}
+                                </div>
+                            </div>
                         </li>
                     );
                 })}

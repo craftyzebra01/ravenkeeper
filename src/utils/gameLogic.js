@@ -1,11 +1,14 @@
-import {allScripts} from '../data/scripts/allScripts'
+import {getScripts} from '../data/scriptAccess.js'
+
+const scripts = getScripts()
 
 export function gameReducer(game, action) {
     switch (action.type) {
+        // This should be the ONLY place anything interacts with a script itself.
         case 'set_script': {
             return {
                 ...game, 
-                script: allScripts.find(s => s.name == action.scriptName)
+                script: scripts.find(s => s.name == action.scriptName)
             }
         }
         case 'set_overlay': {
@@ -187,7 +190,7 @@ export const assignRoles = (players, roles) => {
     //     return shuffleArray(roles.filter(role => role.type === roleMapping[index])).slice(0, c);
     // }).flat());
     const roleMap = shuffleArray(roleCounts[players.length - 5].map((c, index) => {
-        return shuffleArray(roles.filter(role => role.type === roleMapping[index])).slice(0, c);
+        return shuffleArray(roles.filter(role => role.team === roleMapping[index])).slice(0, c);
     }).flat());
     // select the roleCounts amount of each type of role, accessed via searching scriptRoles
     // return a list of players with randomly assigned roles
@@ -200,19 +203,20 @@ export const isBetween = (val, min, max) => {
 
 const roleMapping = ["townsfolk", "outsider", "minion", "demon"]
 
+//should really fix the scripts thing
 export const initialGame = {
     phase: 'setup',
     overlay: 'main', // [grimoire,roleInfo,scriptOrder,night(?)]
     players: [],
-    script: allScripts[0],
-    roles: allScripts[0].roles
+    script: scripts[0],
+    actionQueue: []
 };
 
 const createPreGameActions = (players) => {
     const actions = players.map(player => ({
         playerName: player.name,
         visibleMessage: '',
-        hiddenMessage: `${player.role.name} - ${player.role.type} ${player.role.description}`,
+        hiddenMessage: `${player.role.name} - ${player.role.team} ${player.role.ability}`,
         role: player.role
     }));
     actions.push({ name: 'Begin First Night', visibleMessage: 'All players have seen their roles. Begin the first night.' });
@@ -249,7 +253,7 @@ const createNightActions = (players, specialActions, night) => {
         if(player) {
             acc.push({
                 ...player,
-                visibleMessage: player.role.name + ' ' + player.role.description
+                visibleMessage: player.role.name + ' ' + player.role.ability
             }
             )
             return acc
