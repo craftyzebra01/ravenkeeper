@@ -1,0 +1,26 @@
+Update roles for reminders or triggers
+default rule: if dead do not trigger
+
+trouble brewing:
+    - undertaker - reminder when someone executed
+    - ravenkeeper - reminder if killed @ night
+    - slayer - 1x use
+    - mayor - ??? ignore for now
+    - fortune teller - reminder of red herring
+    - virgin - reminder when nominated the 1st time
+    - drunk - actually another character - NI
+    - scarlet woman - reminder if demon dead, this is demon
+    - imp - reminder for any minion that they are demon
+
+bad moon rising:
+    - grandmother - reminder when child dies or reminder of who child is?
+    - innkeeper - add can't die reminders, 
+
+implement reminders separate from roles, and roles define which are active in the game
+implement as add tag button? could be separate from the roles entirely?
+
+possible reminders
+- power used
+- drunk
+- designated character (think red herring)
+- activate when killed
