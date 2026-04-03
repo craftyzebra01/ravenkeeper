@@ -28,7 +28,7 @@ export function gameReducer(game, action) {
         case 'add_player': {
             return {
                 ...game,
-                players: [...game.players, {name: action.playerName, dead: false}]
+                players: [...game.players, {name: action.playerName, dead: false, tags: []}]
             }
         }
         case 'assign_roles': {
@@ -140,7 +140,27 @@ export function gameReducer(game, action) {
                 players: updatedPlayers
             }
         }
-        default: 
+        case 'add_tag': {
+            return {
+                ...game,
+                players: game.players.map(p =>
+                    p.name === action.playerName
+                        ? {...p, tags: [...(p.tags ?? []), action.tag]}
+                        : p
+                )
+            }
+        }
+        case 'remove_tag': {
+            return {
+                ...game,
+                players: game.players.map(p =>
+                    p.name === action.playerName
+                        ? {...p, tags: (p.tags ?? []).filter((_, i) => i !== action.index)}
+                        : p
+                )
+            }
+        }
+        default:
             return game;
     }
 }
