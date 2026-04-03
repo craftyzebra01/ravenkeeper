@@ -78,7 +78,7 @@ describe('gameLogic', () => {
 
     test('add_player adds player by name', () => {
         const game = gameReducer({players: [{name: 'aaa', dead: true}]}, {type: 'add_player', playerName: 'bbb'})
-        expect(game.players).toEqual([{name: 'aaa', dead: true}, {name: 'bbb', dead: false}])
+        expect(game.players).toEqual([{name: 'aaa', dead: true}, {name: 'bbb', dead: false, tags: []}])
         expect(game.players).toHaveLength(2)
     })
 
@@ -223,5 +223,37 @@ describe('gameLogic', () => {
         const state = {phase: 'setup', players: [{name: 'aaa'}]}
         const game = gameReducer(state, {type: 'not_a_real_action'})
         expect(game).toEqual(state)
+    })
+
+    test('add_tag adds a tag to the correct player', () => {
+        const state = {players: [{name: 'aaa', tags: []}, {name: 'bbb', tags: []}]}
+        const game = gameReducer(state, {type: 'add_tag', playerName: 'aaa', tag: 'Red Herring'})
+        expect(game.players.find(p => p.name === 'aaa').tags).toEqual(['Red Herring'])
+        expect(game.players.find(p => p.name === 'bbb').tags).toEqual([])
+    })
+
+    test('add_tag appends to existing tags', () => {
+        const state = {players: [{name: 'aaa', tags: ['Power Used']}]}
+        const game = gameReducer(state, {type: 'add_tag', playerName: 'aaa', tag: 'Red Herring'})
+        expect(game.players.find(p => p.name === 'aaa').tags).toEqual(['Power Used', 'Red Herring'])
+    })
+
+    test('add_tag handles missing tags field gracefully', () => {
+        const state = {players: [{name: 'aaa'}]}
+        const game = gameReducer(state, {type: 'add_tag', playerName: 'aaa', tag: 'Poisoned'})
+        expect(game.players.find(p => p.name === 'aaa').tags).toEqual(['Poisoned'])
+    })
+
+    test('remove_tag removes the tag at the given index', () => {
+        const state = {players: [{name: 'aaa', tags: ['Power Used', 'Red Herring', 'Poisoned']}]}
+        const game = gameReducer(state, {type: 'remove_tag', playerName: 'aaa', index: 1})
+        expect(game.players.find(p => p.name === 'aaa').tags).toEqual(['Power Used', 'Poisoned'])
+    })
+
+    test('remove_tag only affects the correct player', () => {
+        const state = {players: [{name: 'aaa', tags: ['Power Used']}, {name: 'bbb', tags: ['Red Herring']}]}
+        const game = gameReducer(state, {type: 'remove_tag', playerName: 'aaa', index: 0})
+        expect(game.players.find(p => p.name === 'aaa').tags).toEqual([])
+        expect(game.players.find(p => p.name === 'bbb').tags).toEqual(['Red Herring'])
     })
 })
