@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { roleTypeBg } from '../utils/roleColors';
 
-const Night = ({action, dispatch}) => {
+const Night = ({phase, action, dispatch}) => {
     const [revealed, setRevealed] = useState(false);
 
     const handleNextClick = () => {
@@ -19,7 +19,9 @@ const Night = ({action, dispatch}) => {
             {action.name && !action.playerName && (
                 <p className='text-xl font-semibold text-white/70'>{action.name}</p>
             )}
-            <p className='text-white/80 text-lg'>{action.visibleMessage}</p>
+            <div className={`text-white text-lg w-full rounded-lg px-4 py-3 ${phase !== 'preGame' ? hiddenBg : '' }`}>
+                {action.visibleMessage}
+            </div>
 
             {action.hiddenMessage && (
                 <div className='w-full flex flex-col items-center gap-3'>

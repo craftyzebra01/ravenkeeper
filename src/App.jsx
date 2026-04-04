@@ -44,6 +44,7 @@ export default function App() {
                 case 'otherNight':
                     return (
                         <Night
+                            phase={game.phase}
                             action={game.actionQueue[0]}
                             dispatch={dispatch}
                         />
