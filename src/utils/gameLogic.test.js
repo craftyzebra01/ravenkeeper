@@ -44,6 +44,13 @@ const sampleGame = {
 
 const samplePlayersWithRoles = assignRoles(samplePlayers, sampleRoles)
 
+describe('assign roles', () => {
+    test('assign drunk', () => {
+       // maybe this is handled by selecting the roles
+        // to include in the game?
+    }
+}
+
 describe('gameLogic', () => {
     test('set_script updates parameters', () => {
         const game = gameReducer({}, {
