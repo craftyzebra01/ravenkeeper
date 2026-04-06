@@ -67,6 +67,7 @@ export default function App() {
                     <div>
                         <RoleSelection
                             roles={game.roles}
+                            selectedRoles={game.selectedRoles}
                             dispatch={dispatch}
                         />
                     </div>

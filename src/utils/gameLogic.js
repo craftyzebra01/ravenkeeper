@@ -244,7 +244,8 @@ export const initialGame = {
     overlay: 'main', // [grimoire,roleInfo,scriptOrder,night(?)]
     players: [],
     script: scripts[0],
-    actionQueue: []
+    actionQueue: [],
+    selectedRoles: []
 };
 
 const createPreGameActions = (players) => {
