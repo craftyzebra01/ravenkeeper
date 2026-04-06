@@ -4,6 +4,7 @@ import Grimoire from './components/Grimoire'
 import RoleInfo from './components/RoleInfo';
 import ScriptOrder from './components/ScriptOrder';
 import Night from './components/Night'
+import RoleSelection from './components/RoleSelection';
 
 const STORAGE_KEY = 'ravenkeeper_game';
 
@@ -58,6 +59,14 @@ export default function App() {
                         <Grimoire
                             game={game}
                             dispatch={dispatch}
+                        />
+                    </div>
+                )
+            case 'role_selection':
+                return (
+                    <div>
+                        <RoleSelection
+                            roles={game.roles}
                         />
                     </div>
                 )

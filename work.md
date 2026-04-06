@@ -24,3 +24,10 @@ possible reminders
 - drunk
 - designated character (think red herring)
 - activate when killed
+
+Implement role selection.
+- screen, popup, overlay?
+- how to handle the drunk or lunatic?
+
+I should look into separating overlay from state. Have Night Phase be based on 
+if things are in the action queue
