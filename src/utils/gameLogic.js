@@ -5,6 +5,19 @@ const scripts = getScripts()
 export function gameReducer(game, action) {
     switch (action.type) {
         // This should be the ONLY place anything interacts with a script itself.
+        case 'add_role': {
+            return {
+                ...game,
+                selectedRoles: [...(game.selectedRoles ?? []), action.roleName]
+            }
+        }
+        case 'del_role': {
+            return {
+                ...game,
+                selectedRoles: (game.selectedRoles ?? []).filter(
+                    r => r !== action.roleName)
+            }
+        }
         case 'set_script': {
             const script = scripts.find(s => s.name == action.scriptName) ?? game.script
             return {

@@ -44,12 +44,30 @@ const sampleGame = {
 
 const samplePlayersWithRoles = assignRoles(samplePlayers, sampleRoles)
 
+describe('role selection', () => {
+    test('add role adds the name to game.selectedRoles', () => {
+        const game = gameReducer({selectedRoles: []}, {
+            type: 'add_role',
+            roleName: 'testRole'
+        })
+        expect(game.selectedRoles).toEqual(['testRole'])
+    })
+
+    test('del_role removes the name from game.selectedRoles', () => {
+        const game = gameReducer({selectedRoles: ['test123']}, {
+            type: 'del_role',
+            roleName: 'test123'
+        })
+        expect(game.selectedRoles).toEqual([])
+    })
+})
+
 describe('assign roles', () => {
     test('assign drunk', () => {
        // maybe this is handled by selecting the roles
         // to include in the game?
-    }
-}
+    })
+})
 
 describe('gameLogic', () => {
     test('set_script updates parameters', () => {
