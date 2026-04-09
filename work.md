@@ -33,7 +33,12 @@ I should look into separating overlay from state. Have Night Phase be based on
 if things are in the action queue
 
 Work on reviewing the changes gemini made via opencode. Additionally look into
-adding game requirements to Start Game. include selectedRoles must have the 
+adding game requirements to Start Game. 
+    - did this, was just changing add_role to take a Role instead of a name
+
+include selectedRoles must have the 
 proper count of roles to players at least, and probably to proportions. maybe
 leave that out tho. legion will also make this weird. Eventually I guess add a
 counter per role?
+    - for now no checks, numbers of roles must match the number of players
+    - look into the drunk condition
