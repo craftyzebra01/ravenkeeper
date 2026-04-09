@@ -24,3 +24,16 @@ possible reminders
 - drunk
 - designated character (think red herring)
 - activate when killed
+
+Implement role selection.
+- screen, popup, overlay?
+- how to handle the drunk or lunatic?
+
+I should look into separating overlay from state. Have Night Phase be based on 
+if things are in the action queue
+
+Work on reviewing the changes gemini made via opencode. Additionally look into
+adding game requirements to Start Game. include selectedRoles must have the 
+proper count of roles to players at least, and probably to proportions. maybe
+leave that out tho. legion will also make this weird. Eventually I guess add a
+counter per role?

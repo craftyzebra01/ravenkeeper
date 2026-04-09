@@ -1,16 +1,30 @@
-import {getScripts} from '../data/scriptAccess.js'
-
-const scripts = getScripts()
+import { getScripts } from '../data/scriptAccess.js'
 
 export function gameReducer(game, action) {
+    const scripts = getScripts()
+
     switch (action.type) {
         // This should be the ONLY place anything interacts with a script itself.
+        case 'add_role': {
+            return {
+                ...game,
+                selectedRoles: [...(game.selectedRoles ?? []), action.role]
+            }
+        }
+        case 'del_role': {
+            return {
+                ...game,
+                selectedRoles: (game.selectedRoles ?? []).filter(
+                    r => r.name !== action.roleName)
+            }
+        }
         case 'set_script': {
             const script = scripts.find(s => s.name == action.scriptName) ?? game.script
             return {
                 ...game,
                 script,
-                roles: script.roles
+                roles: script.roles,
+                selectedRoles: []
             }
         }
         case 'set_overlay': {
@@ -32,13 +46,10 @@ export function gameReducer(game, action) {
             }
         }
         case 'assign_roles': {
-            if (!isBetween(game.players.length, 5, 15)) {
-                throw RangeError(`game.players.length must be between 5 and 15 inclusive.`)
-            }
-
+            // validate preconditions?
             return {
                 ...game,
-                players: assignRoles(game.players, game.roles)
+                players: randomlyAssignRoles(game.players, game.selectedRoles)
             }
         }
         case 'next_phase': {
@@ -89,7 +100,7 @@ export function gameReducer(game, action) {
             return { ...game, players };
         }
         case 'reset_game': {
-            return initialGame
+            return getInitialGame() 
         }
         case 'next_action': {
             const remaining = game.actionQueue ? game.actionQueue.slice(1) : [];
@@ -219,20 +230,34 @@ export const assignRoles = (players, roles) => {
     return players.map( (player, index) => ({...player, role: roleMap[index]}));
 }
 
+export const randomlyAssignRoles = (players, roles) => {
+    //Assumption is that players and roles are the same length.
+    if (players.length !== roles.length) {
+        throw new Error(`players and roles must be the same length.`)
+    }
+
+    const shuffledRoles = shuffleArray(roles)
+    return players.map((player, index) => ({...player, role: shuffledRoles[index]}));
+}
+
 export const isBetween = (val, min, max) => {
     return val >= min && val <= max;
 }
 
 const roleMapping = ["townsfolk", "outsider", "minion", "demon"]
 
-//should really fix the scripts thing
-export const initialGame = {
-    phase: 'setup',
-    overlay: 'main', // [grimoire,roleInfo,scriptOrder,night(?)]
-    players: [],
-    script: scripts[0],
-    actionQueue: []
-};
+// start using types here
+export const getInitialGame = () => {
+    const scripts = getScripts()
+    return {
+        phase: 'setup', 
+        overlay: 'main',
+        players: [],
+        script: scripts[0],
+        actionQueue: [],
+        selectedRoles: []
+    }
+}
 
 const createPreGameActions = (players) => {
     const actions = players.map(player => ({
