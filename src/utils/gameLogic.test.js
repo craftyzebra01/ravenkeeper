@@ -1,4 +1,4 @@
-import {assignRoles, gameReducer, initialGame} from './gameLogic'
+import {assignRoles, gameReducer, getInitialGame} from './gameLogic'
 import {expect, test, describe} from 'vitest';
 
 const samplePlayers = [
@@ -183,7 +183,7 @@ describe('gameLogic', () => {
     })
 
     test('reset_game returns initialGame', () => {
-        expect(gameReducer({}, {type: 'reset_game'})).toEqual(getInitialGame()))
+        expect(gameReducer({}, {type: 'reset_game'})).toEqual(getInitialGame())
     })
 
     test('next_action removes the first action', () => {
