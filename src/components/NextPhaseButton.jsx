@@ -1,8 +1,9 @@
 // This thing can be refactored I lost the reason I did it this way.
-const NextPhaseButton = ({phase, dispatch, playerCount}) => {
+const NextPhaseButton = ({phase, dispatch, playerCount, selectedRoles}) => {
     switch(phase) {
         case 'setup': {
-            const disabled = playerCount < 5 || playerCount > 15;
+            const disabled = playerCount < 5 || playerCount > 15 || 
+                playerCount !== selectedRoles.length
             const title = playerCount < 5
                 ? `Need at least 5 players (${playerCount}/5)`
                 : playerCount > 15

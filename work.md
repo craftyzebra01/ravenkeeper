@@ -35,4 +35,5 @@ if things are in the action queue
 Work on reviewing the changes gemini made via opencode. Additionally look into
 adding game requirements to Start Game. include selectedRoles must have the 
 proper count of roles to players at least, and probably to proportions. maybe
-leave that out tho. legion will also make this weird.
+leave that out tho. legion will also make this weird. Eventually I guess add a
+counter per role?

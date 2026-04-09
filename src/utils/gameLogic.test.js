@@ -48,13 +48,13 @@ describe('role selection', () => {
     test('add role adds the name to game.selectedRoles', () => {
         const game = gameReducer({selectedRoles: []}, {
             type: 'add_role',
-            roleName: 'testRole'
+            role: {name: 'testRole'}
         })
-        expect(game.selectedRoles).toEqual(['testRole'])
+        expect(game.selectedRoles).toEqual([{name: 'testRole'}])
     })
 
     test('del_role removes the name from game.selectedRoles', () => {
-        const game = gameReducer({selectedRoles: ['test123']}, {
+        const game = gameReducer({selectedRoles: [{name: 'test123'}]}, {
             type: 'del_role',
             roleName: 'test123'
         })
@@ -62,10 +62,40 @@ describe('role selection', () => {
     })
 })
 
-describe('assign roles', () => {
-    test('assign drunk', () => {
-       // maybe this is handled by selecting the roles
-        // to include in the game?
+describe('set script', () => {
+    test('set_script resets selectedRoles', () => {
+        const game = gameReducer({}, {
+            type: 'set_script',
+            scriptName: 'Trouble Brewing'
+        })
+
+        expect(game.selectedRoles).toEqual([])
+    })
+})
+
+describe('reducer: assign_roles', () => {
+    test('assign_roles role should be assigned to a player', () => {
+        const game = gameReducer(
+            {
+                players: samplePlayers,
+                selectedRoles: sampleRoles
+            },
+            {type: 'assign_roles'})
+        
+        expect(sampleRoles.every(v => 
+            game.players.some(p => p.role === v)
+        )).toBe(true)
+    })
+
+    test(`assign_roles errors if players
+        and selectedRoles are not the same length`, () => {
+        expect(() => gameReducer(
+            {
+                players:samplePlayers,
+                selectedRoles: sampleRoles.slice(0, 2)
+            },
+            {type: 'assign_roles'}
+        )).toThrow()
     })
 })
 
@@ -105,20 +135,6 @@ describe('gameLogic', () => {
         const game = gameReducer({players: [{name: 'aaa', dead: true}]}, {type: 'add_player', playerName: 'bbb'})
         expect(game.players).toEqual([{name: 'aaa', dead: true}, {name: 'bbb', dead: false, tags: []}])
         expect(game.players).toHaveLength(2)
-    })
-
-    test('assign_roles assigns the correct amount or roles for 5 players', () => {
-        const game = gameReducer({players: samplePlayers, roles: sampleRoles}, {type: 'assign_roles'})
-
-        expect(game.players).toHaveLength(5)
-        expect(game.players.filter(player => player.role.team === 'townsfolk')).toHaveLength(3)
-        expect(game.players.filter(player => player.role.team === 'outsider')).toEqual([])
-        expect(game.players.filter(player => player.role.team === 'minion')).toHaveLength(1)
-        expect(game.players.filter(player => player.role.team === 'demon')).toHaveLength(1)
-    })
-
-    test('assign_roles 1 player throws range error', () => {
-        expect(() => gameReducer({players: [{name: 'aaa'}], roles: sampleRoles}, {type: 'assign_roles'})).toThrow(RangeError)
     })
 
     // worth adding tests for nextPhase transition?
@@ -167,7 +183,7 @@ describe('gameLogic', () => {
     })
 
     test('reset_game returns initialGame', () => {
-        expect(gameReducer({}, {type: 'reset_game'})).toEqual(initialGame)
+        expect(gameReducer({}, {type: 'reset_game'})).toEqual(getInitialGame()))
     })
 
     test('next_action removes the first action', () => {
