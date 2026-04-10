@@ -14,6 +14,7 @@ npm run build     # Production build
 npm run lint      # ESLint
 npm run test      # Run all tests (vitest)
 npx vitest run src/utils/gameLogic.test.js  # Run a single test file
+npx tsc --noEmit  # TypeScript type-check
 ```
 
 ## Architecture
@@ -47,7 +48,7 @@ The `Night` component renders `actionQueue[0]`; `next_action` removes it.
 
 ### Script Data
 
-Scripts are JSON files in `src/data/scripts/` and aggregated in `src/data/scripts/allScripts.js`. Each script has:
+Scripts are JSON files in `src/data/scripts/` and aggregated in `src/data/scripts/allScripts.ts`. Each script has:
 ```json
 { "name": "...", "roles": [...], "firstNight": [...], "otherNight": [...] }
 ```
@@ -60,11 +61,11 @@ Scripts are JSON files in `src/data/scripts/` and aggregated in `src/data/script
 ### Key Files
 
 - `src/utils/gameLogic.js` — `gameReducer`, `initialGame`, `assignRoles`, `shuffleArray`, phase transition logic
-- `src/utils/gameHelper.js` — duplicate utility functions (in-progress extraction; prefer `gameLogic.js` as the source of truth for now)
+- `src/utils/roleColors.js` — role type color map (bg class strings), used by all components
 - `src/App.jsx` — root component, owns all state, routes rendering by phase/overlay
 - `src/components/Night.jsx` — renders the current action from `actionQueue`
 - `src/components/Grimoire.jsx` — player list management + script selection (used in setup and day phases)
-- `src/data/scripts/allScripts.js` — aggregates all script JSON files
+- `src/data/scripts/allScripts.ts` — aggregates all script JSON files
 
 ## Design System
 
@@ -90,7 +91,7 @@ Defined in `src/utils/roleColors.js` and shared across all components that need 
 
 | Role type | Color | Tailwind class |
 |---|---|---|
-| Townsfolk | Dark blue | `bg-blue-950` |
+| Townsfolk | Dark blue | `bg-blue-700` |
 | Outsider | Light blue | `bg-blue-800` |
 | Minion | Light red | `bg-red-800` |
 | Demon | Dark red | `bg-red-950` |
