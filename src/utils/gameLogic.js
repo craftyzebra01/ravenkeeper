@@ -62,7 +62,7 @@ export function gameReducer(game, action) {
                     const players = assignRoles(game.players, game.roles)
                     return {
                         ...game,
-                        phase: np,
+                        phase: 'preGame',
                         players: players,
                         overlay: 'main',
                         actionQueue: createPreGameActions(players)
@@ -74,15 +74,20 @@ export function gameReducer(game, action) {
                     console.log(actions)
                     return {
                         ...game,
-                        phase: np,
+                        phase: 'firstNight',
                         overlay: 'main',
                         actionQueue: createNightActions(game.players, specialActions, game.script.firstNight)
                     }
                 case 'day':
                     return {
                         ...game,
-                        phase: np,
+                        phase: 'otherNight',
                         actionQueue: createNightActions(game.players, specialActions, game.script.otherNight)
+                    }
+                case 'otherNight':
+                    return {
+                        ...game,
+                        phase: 'day',
                     }
                 default:
                     return {
@@ -103,19 +108,11 @@ export function gameReducer(game, action) {
             return getInitialGame() 
         }
         case 'next_action': {
-            const remaining = game.actionQueue ? game.actionQueue.slice(1) : [];
-            if (remaining.length === 0) {
-                const np = nextPhase[game.phase];
-                if (game.phase === 'preGame') {
-                    return {
-                        ...game,
-                        phase: np,
-                        actionQueue: createNightActions(game.players, specialActions, game.script.firstNight)
-                    };
-                }
-                return { ...game, phase: np, actionQueue: [] };
+            // this should remove the FIRST action in the queue.
+            return { 
+                ...game, 
+                actionQueue: game.actionQueue ? game.actionQueue.slice(1) : []
             }
-            return { ...game, actionQueue: remaining };
         }
         case 'mark_dead': {
             return {

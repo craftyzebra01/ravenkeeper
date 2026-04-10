@@ -40,7 +40,7 @@ export default function App() {
                             dispatch={dispatch}
                         />
                     )
-                case 'preGame':
+                case 'preGame' && game.actionQueue > 0:
                 case 'firstNight':
                 case 'otherNight':
                     return (
@@ -92,9 +92,10 @@ export default function App() {
                 )
             default:
                 return (
-                    <div>
-                        How did you get here?
-                    </div>
+                    <Grimoire
+                        game={game}
+                        dispatch={dispatch}
+                    />
                 )
         }
     }
