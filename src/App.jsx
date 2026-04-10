@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import { gameReducer, getInitialGame} from './utils/gameLogic'
 import Grimoire from './components/Grimoire'
 import RoleInfo from './components/RoleInfo';
 import ScriptOrder from './components/ScriptOrder';
 import Night from './components/Night'
-import RoleSelection from './components/RoleSelection';
 
 const STORAGE_KEY = 'ravenkeeper_game';
 
@@ -58,16 +57,6 @@ export default function App() {
                     <div>
                         <Grimoire
                             game={game}
-                            dispatch={dispatch}
-                        />
-                    </div>
-                )
-            case 'role_selection':
-                return (
-                    <div>
-                        <RoleSelection
-                            roles={game.roles}
-                            selectedRoles={game.selectedRoles}
                             dispatch={dispatch}
                         />
                     </div>
