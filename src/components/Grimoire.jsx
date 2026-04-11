@@ -15,34 +15,34 @@ const Grimoire = ({game, dispatch}) => {
                     dispatch={dispatch}
                 />
             )}
-            {view === 'players' ? (
-                <>
-                    <PlayersDisplay
-                        players={game.players}
-                        phase={game.phase}
-                        dispatch={dispatch}
-                    />
-                    {game.phase === 'setup' && (
-                        <button className='px-4 py-2 rounded-lg text-sm bg-slate-800 text-slate-400 hover:bg-slate-700 transition-colors'
-                            onClick={() => setView('role_selection')}
-                        >
-                            Select Roles
-                        </button>
-                    )}
-                </>
-            ) : (
-                <>
-                    <RoleSelection
-                        roles={game.roles}
-                        selectedRoles={game.selectedRoles}
-                        dispatch={dispatch}
-                    />
-                    <button className='px-4 py-2 rounded-lg text-sm bg-slate-800 text-slate-400 hover:bg-slate-700 transition-colors'
+            {game.phase === 'setup' && (
+                <div className='flex gap-2'>
+                    <button
                         onClick={() => setView('players')}
+                        className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${view === 'players' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`}
                     >
-                        Select Players
+                        Players
                     </button>
-                </>
+                    <button
+                        onClick={() => setView('role_selection')}
+                        className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${view === 'role_selection' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`}
+                    >
+                        Roles
+                    </button>
+                </div>
+            )}
+            {view === 'players' ? (
+                <PlayersDisplay
+                    players={game.players}
+                    phase={game.phase}
+                    dispatch={dispatch}
+                />
+            ) : (
+                <RoleSelection
+                    roles={game.roles}
+                    selectedRoles={game.selectedRoles}
+                    dispatch={dispatch}
+                />
             )}
             <div className='flex gap-2'>
                 <NextPhaseButton

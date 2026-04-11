@@ -1,53 +1,50 @@
 import { roleTypeBg } from "../utils/roleColors"
-import { } from "../utils/gameLogic"
 
 const ROLE_TYPES = ['townsfolk', 'outsider', 'minion', 'demon']
 
-
-
 const RoleSelection = ({roles, selectedRoles, dispatch}) => {
     const handleRoleClick = (role) => {
-        if(selectedRoles.some(sr => sr.name === role.name)) {
+        if (selectedRoles.some(sr => sr.name === role.name)) {
             dispatch({type: 'del_role', role: role.name})
-        }
-        else {
+        } else {
             dispatch({type: 'add_role', role: role})
         }
-    }
-    
-    const getLIClasses = (roleName) => {
-        if((selectedRoles ?? []).some(sr => sr.name === roleName)) {
-            return 'text-sm text-white m-2 ring-2 ring-white'
-        }
-
-        return 'text-sm text-white m-2'
     }
 
     if (!roles) { return null }
     return (
         <div className='flex flex-col gap-4'>
-            <div className='flex justify-center gap-4'>
+            <div className='flex gap-2'>
                 {ROLE_TYPES.map(team => (
-                    <div key={team}>
-                        {selectedRoles.filter(sr => sr.team === team).length}
+                    <div key={team} className={`flex-1 flex flex-col items-center rounded-lg px-2 py-2 ${roleTypeBg[team]}`}>
+                        <span className='text-xs text-white/70 uppercase tracking-wide'>{team}</span>
+                        <span className='text-lg font-bold text-white'>
+                            {selectedRoles.filter(sr => sr.team === team).length}
+                        </span>
                     </div>
                 ))}
             </div>
             {ROLE_TYPES.map(team => {
                 const inRoles = roles.filter(r => r.team === team)
-                if (!inRoles) { return null }
+                if (!inRoles.length) { return null }
                 return (
-                    <div key={team} className={`rounded-xl p-4 ${roleTypeBg[team]}`}>
-                        <ul>
-                            {inRoles.map(r => (
-                                <li key={r.name}
-                                    className={getLIClasses(r.name)}
-                                    onClick={() => {handleRoleClick(r)}}
-                                >
-                                    <div className='font-medium'>{r.name}</div>
-                                </li>
-                            ))}
-                        </ul>
+                    <div key={team} className='flex flex-col gap-1'>
+                        <span className='text-xs text-slate-400 font-medium uppercase tracking-wide'>{team}</span>
+                        <div className='flex flex-col gap-1'>
+                            {inRoles.map(r => {
+                                const selected = selectedRoles.some(sr => sr.name === r.name)
+                                return (
+                                    <button
+                                        key={r.name}
+                                        onClick={() => handleRoleClick(r)}
+                                        className={`flex items-center justify-between rounded-lg px-4 py-2 text-left transition-colors ${selected ? `${roleTypeBg[team]} text-white` : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}
+                                    >
+                                        <span className='text-sm font-medium'>{r.name}</span>
+                                        {selected && <span className='text-white/70 text-sm'>✓</span>}
+                                    </button>
+                                )
+                            })}
+                        </div>
                     </div>
                 )
             })}
