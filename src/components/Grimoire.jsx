@@ -40,7 +40,7 @@ const Grimoire = ({game, dispatch}) => {
             ) : (
                 <RoleSelection
                     roles={game.roles}
-                    selectedRoles={game.selectedRoles}
+                    selectedRoles={game.selectedRoles ?? []}
                     dispatch={dispatch}
                 />
             )}

@@ -15,7 +15,7 @@ export function gameReducer(game, action) {
             return {
                 ...game,
                 selectedRoles: (game.selectedRoles ?? []).filter(
-                    r => r.name !== action.roleName)
+                    r => r.name !== action.role)
             }
         }
         case 'set_script': {
@@ -59,7 +59,7 @@ export function gameReducer(game, action) {
             const np = nextPhase[game.phase]
             switch(game.phase) {
                 case 'setup':
-                    const players = assignRoles(game.players, game.roles)
+                    const players = randomlyAssignRoles(game.players, game.selectedRoles)
                     return {
                         ...game,
                         phase: 'preGame',
@@ -247,10 +247,11 @@ const roleMapping = ["townsfolk", "outsider", "minion", "demon"]
 export const getInitialGame = () => {
     const scripts = getScripts()
     return {
-        phase: 'setup', 
+        phase: 'setup',
         overlay: 'main',
         players: [],
         script: scripts[0],
+        roles: scripts[0].roles,
         actionQueue: [],
         selectedRoles: []
     }

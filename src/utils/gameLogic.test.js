@@ -56,7 +56,7 @@ describe('role selection', () => {
     test('del_role removes the name from game.selectedRoles', () => {
         const game = gameReducer({selectedRoles: [{name: 'test123'}]}, {
             type: 'del_role',
-            roleName: 'test123'
+            role: 'test123'
         })
         expect(game.selectedRoles).toEqual([])
     })

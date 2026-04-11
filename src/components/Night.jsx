@@ -9,6 +9,14 @@ const Night = ({phase, action, dispatch}) => {
         dispatch({type: 'next_action'});
     }
 
+    if (!action) {
+        return (
+            <div className='flex flex-col items-center gap-4 bg-slate-800 rounded-xl p-8 text-center'>
+                <p className='text-slate-400'>No more actions.</p>
+            </div>
+        )
+    }
+
     const hiddenBg = action.role?.team ? roleTypeBg[action.role.team] : 'bg-slate-700';
 
     return (

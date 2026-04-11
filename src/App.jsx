@@ -39,9 +39,12 @@ export default function App() {
                             dispatch={dispatch}
                         />
                     )
-                case 'preGame' && game.actionQueue > 0:
+                case 'preGame':
                 case 'firstNight':
                 case 'otherNight':
+                    if (!game.actionQueue?.length) {
+                        return <Grimoire game={game} dispatch={dispatch} />
+                    }
                     return (
                         <Night
                             phase={game.phase}
