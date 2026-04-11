@@ -139,13 +139,13 @@ describe('gameLogic', () => {
 
     // worth adding tests for nextPhase transition?
     test('next_phase setup -> preGame', () => {
-        const game = gameReducer({players: samplePlayers, roles: sampleRoles, phase: 'setup'}, {type: 'next_phase'})
+        const game = gameReducer({players: samplePlayers, roles: sampleRoles, selectedRoles: sampleRoles, phase: 'setup'}, {type: 'next_phase'})
 
         expect(game.phase).toEqual('preGame')
     })
 
     test('next_phase setup should create actionQueue', () => {
-        const game = gameReducer({players: samplePlayers, roles: sampleRoles, phase: 'setup'}, {'type': 'next_phase'})
+        const game = gameReducer({players: samplePlayers, roles: sampleRoles, selectedRoles: sampleRoles, phase: 'setup'}, {'type': 'next_phase'})
 
         expect(game.actionQueue).toHaveLength(6)
     })

@@ -14,8 +14,10 @@ export function gameReducer(game, action) {
         case 'del_role': {
             return {
                 ...game,
-                selectedRoles: (game.selectedRoles ?? []).filter(
-                    r => r.name !== action.role)
+                selectedRoles: (game.selectedRoles ?? []).filter(r => r.name !== action.role),
+                players: (game.players ?? []).map(p =>
+                    p.assignedRole?.name === action.role ? { ...p, assignedRole: undefined } : p
+                )
             }
         }
         case 'set_script': {
@@ -24,7 +26,16 @@ export function gameReducer(game, action) {
                 ...game,
                 script,
                 roles: script.roles,
-                selectedRoles: []
+                selectedRoles: [],
+                players: (game.players ?? []).map(p => ({ ...p, assignedRole: undefined }))
+            }
+        }
+        case 'set_player_role': {
+            return {
+                ...game,
+                players: game.players.map(p =>
+                    p.name === action.playerName ? { ...p, assignedRole: action.role ?? undefined } : p
+                )
             }
         }
         case 'set_overlay': {
@@ -128,10 +139,10 @@ export function gameReducer(game, action) {
             const updatedPlayers = game.players.map(player => {
                 if(player.name === action.playerName) {
                     if (player.dead === false) {
-                        throw Error(`use_dead_vote - player: ${playerName} is not dead.`)
+                        throw Error(`use_dead_vote - player: ${action.playerName} is not dead.`)
                     }
                     if (player.deadVoteUsed) {
-                        throw Error(`use_dead_vote - player: ${playerName} has already used their dead vote.`)
+                        throw Error(`use_dead_vote - player: ${action.playerName} has already used their dead vote.`)
                     }
 
                     return {
@@ -228,13 +239,22 @@ export const assignRoles = (players, roles) => {
 }
 
 export const randomlyAssignRoles = (players, roles) => {
-    //Assumption is that players and roles are the same length.
     if (players.length !== roles.length) {
         throw new Error(`players and roles must be the same length.`)
     }
 
-    const shuffledRoles = shuffleArray(roles)
-    return players.map((player, index) => ({...player, role: shuffledRoles[index]}));
+    const locked = players.filter(p => p.assignedRole)
+    const unassigned = players.filter(p => !p.assignedRole)
+    const lockedRoleNames = new Set(locked.map(p => p.assignedRole.name))
+    const remainingRoles = shuffleArray(roles.filter(r => !lockedRoleNames.has(r.name)))
+
+    let i = 0
+    return players.map(player => {
+        if (player.assignedRole) {
+            return { ...player, role: player.assignedRole, assignedRole: undefined }
+        }
+        return { ...player, role: remainingRoles[i++], assignedRole: undefined }
+    })
 }
 
 export const isBetween = (val, min, max) => {

@@ -36,6 +36,7 @@ const Grimoire = ({game, dispatch}) => {
                     players={game.players}
                     phase={game.phase}
                     dispatch={dispatch}
+                    selectedRoles={game.selectedRoles ?? []}
                 />
             ) : (
                 <RoleSelection

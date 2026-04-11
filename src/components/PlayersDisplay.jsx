@@ -3,7 +3,7 @@ import Player from "./Player"
 import DeathButton from "./DeathButton"
 import { roleTypeBg } from "../utils/roleColors"
 
-const PlayerRow = ({player, phase, dispatch}) => {
+const PlayerRow = ({player, phase, dispatch, selectedRoles}) => {
     const [tagsOpen, setTagsOpen] = useState(false)
     const [tagInput, setTagInput] = useState('')
 
@@ -25,6 +25,22 @@ const PlayerRow = ({player, phase, dispatch}) => {
                     roleType={player.role?.team}
                 />
                 <div className='flex items-center gap-2'>
+                {phase === 'setup' && selectedRoles?.length > 0 && (
+                    <select
+                        value={player.assignedRole?.name ?? ''}
+                        onChange={e => dispatch({
+                            type: 'set_player_role',
+                            playerName: player.name,
+                            role: selectedRoles.find(r => r.name === e.target.value) ?? null
+                        })}
+                        className='bg-slate-700 text-slate-200 text-xs rounded px-2 py-1 border-none focus:outline-none focus:ring-2 focus:ring-indigo-500'
+                    >
+                        <option value=''>Random</option>
+                        {selectedRoles.map(r => (
+                            <option key={r.name} value={r.name}>{r.name}</option>
+                        ))}
+                    </select>
+                )}
                     <button
                         onClick={() => setTagsOpen(o => !o)}
                         className='px-2 py-1 rounded bg-slate-700 text-slate-300 hover:bg-slate-600 text-xs transition-colors'>
@@ -85,7 +101,7 @@ const PlayerRow = ({player, phase, dispatch}) => {
     )
 }
 
-const PlayersDisplay = ({players, phase, dispatch}) => {
+const PlayersDisplay = ({players, phase, dispatch, selectedRoles}) => {
     const [playerName, setPlayerName] = useState('')
 
     const handleAddPlayer = (e) => {
@@ -103,6 +119,7 @@ const PlayersDisplay = ({players, phase, dispatch}) => {
                         player={player}
                         phase={phase}
                         dispatch={dispatch}
+                        selectedRoles={selectedRoles}
                     />
                 ))}
             </ul>
