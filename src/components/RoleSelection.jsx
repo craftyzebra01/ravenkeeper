@@ -37,10 +37,13 @@ const RoleSelection = ({roles, selectedRoles, dispatch}) => {
                                     <button
                                         key={r.name}
                                         onClick={() => handleRoleClick(r)}
-                                        className={`flex items-center justify-between rounded-lg px-4 py-2 text-left transition-colors ${selected ? `${roleTypeBg[team]} text-white` : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}
+                                        className={`flex items-start justify-between rounded-lg px-4 py-2 text-left transition-opacity ${roleTypeBg[team]} text-white ${selected ? 'opacity-100' : 'opacity-40 hover:opacity-60'}`}
                                     >
-                                        <span className='text-sm font-medium'>{r.name}</span>
-                                        {selected && <span className='text-white/70 text-sm'>✓</span>}
+                                        <div className='flex flex-col gap-0.5'>
+                                            <span className='text-sm font-medium'>{r.name}</span>
+                                            <span className='text-xs text-white/70'>{r.ability}</span>
+                                        </div>
+                                        {selected && <span className='text-white/70 text-sm ml-2 shrink-0'>✓</span>}
                                     </button>
                                 )
                             })}

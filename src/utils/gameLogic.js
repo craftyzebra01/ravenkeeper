@@ -27,7 +27,9 @@ export function gameReducer(game, action) {
                 script,
                 roles: script.roles,
                 selectedRoles: [],
-                players: (game.players ?? []).map(p => ({ ...p, assignedRole: undefined }))
+                players: (game.players ?? []).map(p => ({ ...p, assignedRole: undefined })),
+                bluffs: [],
+                bluffsConfirmed: false
             }
         }
         case 'set_player_role': {
@@ -116,7 +118,26 @@ export function gameReducer(game, action) {
             return { ...game, players };
         }
         case 'reset_game': {
-            return getInitialGame() 
+            return getInitialGame()
+        }
+        case 'toggle_bluff': {
+            if (game.bluffsConfirmed) return game
+            const bluffs = game.bluffs ?? []
+            const exists = bluffs.some(b => b.name === action.role.name)
+            if (exists) {
+                return { ...game, bluffs: bluffs.filter(b => b.name !== action.role.name) }
+            }
+            if (bluffs.length >= 3) return game
+            return { ...game, bluffs: [...bluffs, action.role] }
+        }
+        case 'confirm_bluffs': {
+            const bluffTags = (game.bluffs ?? []).map(b => `Bluff: ${b.name}`)
+            const players = game.players.map(p =>
+                p.role?.team === 'demon'
+                    ? { ...p, tags: [...(p.tags ?? []), ...bluffTags] }
+                    : p
+            )
+            return { ...game, bluffsConfirmed: true, players }
         }
         case 'next_action': {
             const current = game.actionQueue?.[0]
@@ -277,7 +298,9 @@ export const getInitialGame = () => {
         script: scripts[0],
         roles: scripts[0].roles,
         actionQueue: [],
-        selectedRoles: []
+        selectedRoles: [],
+        bluffs: [],
+        bluffsConfirmed: false
     }
 }
 

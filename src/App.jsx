@@ -45,11 +45,17 @@ export default function App() {
                     if (!game.actionQueue?.length) {
                         return <Grimoire game={game} dispatch={dispatch} />
                     }
+                    const bluffPool = game.script.roles.filter(
+                        r => !game.players.some(p => p.role?.name === r.name)
+                    )
                     return (
                         <Night
                             phase={game.phase}
                             action={game.actionQueue[0]}
                             dispatch={dispatch}
+                            bluffs={game.bluffs ?? []}
+                            bluffPool={bluffPool}
+                            bluffsConfirmed={game.bluffsConfirmed ?? false}
                         />
                     )
             }
