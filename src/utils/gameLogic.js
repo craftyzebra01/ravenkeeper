@@ -119,9 +119,13 @@ export function gameReducer(game, action) {
             return getInitialGame() 
         }
         case 'next_action': {
-            // this should remove the FIRST action in the queue.
-            return { 
-                ...game, 
+            const current = game.actionQueue?.[0]
+            const players = (current?.role?.oneTimeDeadAbility && current?.name)
+                ? game.players.map(p => p.name === current.name ? { ...p, deadAbilityUsed: true } : p)
+                : game.players
+            return {
+                ...game,
+                players,
                 actionQueue: game.actionQueue ? game.actionQueue.slice(1) : []
             }
         }
@@ -315,7 +319,12 @@ const createNightActions = (players, specialActions, night) => {
         }
 
         const player = players.find(player => player.role.name === currentValue)
-        if(player) {
+        const shouldAct = player && (
+            !player.dead ||
+            player.role.actsWhenDead ||
+            (player.role.oneTimeDeadAbility && !player.deadAbilityUsed)
+        )
+        if(shouldAct) {
             acc.push({
                 ...player,
                 visibleMessage: player.role.name + ' ' + player.role.ability

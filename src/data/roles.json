@@ -51,7 +51,8 @@
         "name": "Ravenkeeper",
         "ability": "If you die at night, you are woken to choose a player: you learn their character.",
         "night": "If the Ravenkeeper died tonight, the Ravenkeeper chooses a player. Show that player's character token.",
-        "team": "townsfolk"
+        "team": "townsfolk",
+        "oneTimeDeadAbility": true
     },
     {
         "name": "Virgin",
@@ -359,7 +360,8 @@
         "name": "Sage",
         "ability": "If the Demon kills you, you learn that it is 1 of 2 players.",
         "night": "If the Demon killed the Sage, wake the Sage and point to 2 players, 1 of which is the Demon.",
-        "team": "townsfolk"
+        "team": "townsfolk",
+        "oneTimeDeadAbility": true
     },
     {
         "name": "Mutant",
