@@ -3,7 +3,7 @@ import Player from "./Player"
 import DeathButton from "./DeathButton"
 import { roleTypeBg } from "../utils/roleColors"
 
-const PlayerRow = ({player, phase, dispatch, selectedRoles}) => {
+const PlayerRow = ({player, phase, dispatch, selectedRoles, showPoison, showDrunk}) => {
     const [tagsOpen, setTagsOpen] = useState(false)
     const [tagInput, setTagInput] = useState('')
 
@@ -41,6 +41,20 @@ const PlayerRow = ({player, phase, dispatch, selectedRoles}) => {
                         ))}
                     </select>
                 )}
+                    {showPoison && phase !== 'setup' && (
+                        <button
+                            onClick={() => dispatch({type: 'toggle_player_status', playerName: player.name, status: 'poisoned'})}
+                            className={`px-2 py-1 rounded text-xs transition-colors ${player.poisoned ? 'bg-violet-700 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}>
+                            Poison
+                        </button>
+                    )}
+                    {showDrunk && phase !== 'setup' && (
+                        <button
+                            onClick={() => dispatch({type: 'toggle_player_status', playerName: player.name, status: 'drunk'})}
+                            className={`px-2 py-1 rounded text-xs transition-colors ${player.drunk ? 'bg-amber-700 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}>
+                            Drunk
+                        </button>
+                    )}
                     <button
                         onClick={() => setTagsOpen(o => !o)}
                         className='px-2 py-1 rounded bg-slate-700 text-slate-300 hover:bg-slate-600 text-xs transition-colors'>
@@ -101,7 +115,7 @@ const PlayerRow = ({player, phase, dispatch, selectedRoles}) => {
     )
 }
 
-const PlayersDisplay = ({players, phase, dispatch, selectedRoles}) => {
+const PlayersDisplay = ({players, phase, dispatch, selectedRoles, showPoison, showDrunk}) => {
     const [playerName, setPlayerName] = useState('')
 
     const handleAddPlayer = (e) => {
@@ -120,6 +134,8 @@ const PlayersDisplay = ({players, phase, dispatch, selectedRoles}) => {
                         phase={phase}
                         dispatch={dispatch}
                         selectedRoles={selectedRoles}
+                        showPoison={showPoison}
+                        showDrunk={showDrunk}
                     />
                 ))}
             </ul>

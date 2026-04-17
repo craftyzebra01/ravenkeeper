@@ -37,6 +37,8 @@ const Grimoire = ({game, dispatch}) => {
                     phase={game.phase}
                     dispatch={dispatch}
                     selectedRoles={game.selectedRoles ?? []}
+                    showPoison={game.players.some(p => p.role?.causesPoison) || (game.roles ?? []).some(r => r.causesPoison)}
+                    showDrunk={game.players.some(p => p.role?.causesDrunk) || (game.roles ?? []).some(r => r.causesDrunk)}
                 />
             ) : (
                 <RoleSelection

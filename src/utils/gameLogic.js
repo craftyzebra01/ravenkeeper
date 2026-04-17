@@ -130,6 +130,16 @@ export function gameReducer(game, action) {
             if (bluffs.length >= 3) return game
             return { ...game, bluffs: [...bluffs, action.role] }
         }
+        case 'toggle_player_status': {
+            return {
+                ...game,
+                players: game.players.map(p =>
+                    p.name === action.playerName
+                        ? { ...p, [action.status]: !p[action.status] }
+                        : p
+                )
+            }
+        }
         case 'confirm_bluffs': {
             const bluffTags = (game.bluffs ?? []).map(b => `Bluff: ${b.name}`)
             const players = game.players.map(p =>

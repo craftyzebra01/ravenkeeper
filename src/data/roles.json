@@ -89,7 +89,8 @@
         "name": "Sailor",
         "ability": "Each night, choose an alive player: either you or they are drunk until dusk. You can't die.",
         "night": "The Sailor chooses a living palyer.",
-        "team": "townsfolk"
+        "team": "townsfolk",
+        "causesDrunk": true
     },
     {
         "name": "Chambermaid",
@@ -107,7 +108,8 @@
         "name": "Innkeeper",
         "ability": "Each night*, choose 2 players: they can't die tonight, but 1 is drunk until dusk.",
         "night": "The Innkeeper chooses 2 players.",
-        "team": "townsfolk"
+        "team": "townsfolk",
+        "causesDrunk": true
     },
     {
         "name": "Gambler",
@@ -125,7 +127,8 @@
         "name": "Courtier",
         "ability": "Once per game, at night, choose a character: they are drunk for 3 nights & 3 days.",
         "night": "The Courtier might choose a character.",
-        "team": "townsfolk"
+        "team": "townsfolk",
+        "causesDrunk": true
     },
     {
         "name": "Professor",
@@ -137,7 +140,8 @@
         "name": "Minstrel",
         "ability": "When a Minion dies by execution, all other players (except Travellers) are drunk until dusk tomorrow.",
         "night": "",
-        "team": "townsfolk"
+        "team": "townsfolk",
+        "causesDrunk": true
     },
     {
         "name": "Tea Lady",
@@ -167,7 +171,8 @@
         "name": "Drunk",
         "ability": "You do not know you are the Drunk. You think you are a Townfolk character, but you are not.",
         "night": "",
-        "team": "outsider"
+        "team": "outsider",
+        "causesDrunk": true
     },
     {
         "name": "Recluse",
@@ -185,7 +190,8 @@
         "name": "Goon",
         "ability": "Each night, the 1st player to choose you with their ability is drunk until dusk. You become their alignment.",
         "night": "",
-        "team": "outsider"
+        "team": "outsider",
+        "causesDrunk": true
     },
     {
         "name": "Lunatic",
@@ -210,7 +216,8 @@
         "name": "Poisoner",
         "ability": "Each night, choose a player: they are poisoned tonight and tomorrow day.",
         "night": "The Poisoner chooses a player.",
-        "team": "minion"
+        "team": "minion",
+        "causesPoison": true
     },
     {
         "name": "Spy",
@@ -272,7 +279,8 @@
         "ability": "Each night, choose a player: they are poisoned. The previously poisoned player dies then becomes healthy.",
         "firstNight": "The Pukka chooses a player.",
         "otherNight": "The Pukka chooses a player. The previously poisoned player dies then becomes healthy.",
-        "team": "demon"
+        "team": "demon",
+        "causesPoison": true
     },
     {
         "name": "Shabaloth",
@@ -302,6 +310,7 @@
         "name": "Snake Charmer",
         "ability": "Each night, choose an alive player: a chosen Demon swaps characters & alignments with you & is then poisoned.",
         "team": "townsfolk",
+        "causesPoison": true,
         "night": "The Snake Charmer chooses a player. If they chose the Demon: Show the YOU ARE & Demon tokens. Give a thumbs down. Swap the Snake Charmer & Demon tokens. Put the old Snake Charmer to sleep. Wake the old Demon. Show the YOU ARE and Snake Charmer tokens & give a thumbs up."
     },
     {
@@ -343,6 +352,7 @@
         "name": "Philosopher",
         "ability": "Once per game, at night, choose a good character: gain that ability. If this character is in play, they are drunk.",
         "team": "townsfolk",
+        "causesDrunk": true,
         "night": "The Philosopher might choose a character. If necessary, swap their character token."
     },
     {
@@ -378,7 +388,8 @@
         "name": "Sweetheart",
         "ability": "When you die, 1 player is drunk from now on.",
         "night": "If the Sweetheart died, a player became drunk immediately. If you haven't done this yet, do so now.",
-        "team": "outsider"
+        "team": "outsider",
+        "causesDrunk": true
     },
     {
         "name": "Klutz",
@@ -419,13 +430,15 @@
         "name": "Vigormortis",
         "ability": "Each night*, choose a player: they die. Minions you kill keep their ability & poison 1 Townsfolk neighbor. [-1 Outsider]",
         "night": "The Vigormortis chooses a player. If that player is a Minion, poison neighboring Townsfolk.",
-        "team": "demon"
+        "team": "demon",
+        "causesPoison": true
     },
     {
         "name": "No Dashii",
         "ability": "Each night*, choose a player: they die. Your 2 Townsfolk neighbors are poisoned.",
         "night": "The No Dashii chooses a player.",
-        "team": "demon"
+        "team": "demon",
+        "causesPoison": true
     },
     {
         "name": "Vortox",
