@@ -1,0 +1,29 @@
+{
+    "name": "Trouble Brewing",
+    "roles": [
+        "Washerwoman",
+        "Librarian",
+        "Investigator",
+        "Chef",
+        "Empath",
+        "Fortune Teller",
+        "Undertaker",
+        "Monk",
+        "Ravenkeeper",
+        "Virgin",
+        "Slayer",
+        "Soldier",
+        "Mayor",
+        "Butler",
+        "Drunk",
+        "Recluse",
+        "Saint",
+        "Poisoner",
+        "Spy",
+        "Baron",
+        "Scarlet Woman",
+        "Imp"
+    ],
+    "firstNight": ["Dusk", "Minion Info", "Demon Info", "Poisoner", "Spy", "Washerwoman", "Librarian", "Investigator", "Chef", "Empath", "Fortune Teller", "Butler", "Dawn"],
+    "otherNight": ["Dusk", "Poisoner", "Monk", "Spy", "Scarlet Woman", "Imp", "Ravenkeeper", "Undertaker", "Empath", "Fortune Teller", "Butler", "Dawn"]
+}

@@ -1,0 +1,449 @@
+[
+    {
+        "name": "Washerwoman",
+        "ability": "You start knowing that 1 of 2 players is a particular Townsfolk.",
+        "night": "Show the townsfolk character token. Point to both the TOWNSFOLK and WRONG players.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Librarian",
+        "ability": "You start knowing that 1 of 2 players is a particular Outsider.(Or that zero are in play.)",
+        "night": "Show the Outsider character token. Point to both the OUTSIDER and WRONG players.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Investigator",
+        "ability": "You start knowing that 1 of 2 players is a particular Minion.",
+        "night": "Show the Minion character token. Point to both the TOWNSFOLK and WRONG players.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Chef",
+        "ability": "You start knowing how many pairs of evil players there are.",
+        "night": "Give a finger signal.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Empath",
+        "ability": "Each night, you learn how many of your 2 alive neighbors are evil.",
+        "night": "Give a finger signal.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Fortune Teller",
+        "ability": "Each night, choose 2 players: you learn if either is a Demon. There is a good player that registers as a Demon to you",
+        "night": "The Fortune Teller chooses 2 players. Nod if either is the Demon (or the RED HERRING).",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Undertaker",
+        "ability": "Each night*, you learn which character died by execution today.",
+        "night": "If a player was executed today, show their character token.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Monk",
+        "ability": "Each night*, choose a player(not yourself): they are safe from the Demon tonight.",
+        "night": "The Monk chooses a player.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Ravenkeeper",
+        "ability": "If you die at night, you are woken to choose a player: you learn their character.",
+        "night": "If the Ravenkeeper died tonight, the Ravenkeeper chooses a player. Show that player's character token.",
+        "team": "townsfolk",
+        "oneTimeDeadAbility": true
+    },
+    {
+        "name": "Virgin",
+        "ability": "The 1st time you are nominated, if the nominator is a Townsflk, they are executed immediately.",
+        "night": "",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Slayer",
+        "ability": "Once per game, during the day, publicly choose a player: if they are the Demon, they die.",
+        "night": "",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Soldier",
+        "ability": "You are safe from the Demon.",
+        "night": "",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Mayor",
+        "ability": "If only 3 players live & no execution occurs, your team wins. If you die at night, another player might die instead.",
+        "night": "",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Grandmother",
+        "ability": "You start knowing a good player & their character. If the Demon kills them, you die too.",
+        "firstNight": "Point to the grandchild player & show their character token.",
+        "otherNight": "If the grandchild was killed by the Demon, the Grandmother dies too.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Sailor",
+        "ability": "Each night, choose an alive player: either you or they are drunk until dusk. You can't die.",
+        "night": "The Sailor chooses a living palyer.",
+        "team": "townsfolk",
+        "causesDrunk": true
+    },
+    {
+        "name": "Chambermaid",
+        "ability": "Each night, choose 2 alive players (not yourself): you learn how many woke tonight due to their ability.",
+        "night": "The Chambermaid chooses 2 living players. Give a finger signal.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Exorcist",
+        "ability": "Each night*, choose a player (different to last night): the Demon, if chosen, learns who you are then doesn't wake tonight.",
+        "night": "The Exorcist chooses a player. Put the Exorcist to sleep. If the Exorcist chose the Demon: Wake the Demon. Show the THIS CHARACTER SELECTED YOU & Exorcist tokens. Point to the Exorcist.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Innkeeper",
+        "ability": "Each night*, choose 2 players: they can't die tonight, but 1 is drunk until dusk.",
+        "night": "The Innkeeper chooses 2 players.",
+        "team": "townsfolk",
+        "causesDrunk": true
+    },
+    {
+        "name": "Gambler",
+        "ability": "Each night*, choose a player & guess their character: if you guess wrong, you die.",
+        "night": "The Gambler chooses a player & a character.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Gossip",
+        "ability": "Each day, you may make a public statement. Tonight, if it was true, a player dies.",
+        "night": "If the Gossip is due to kill a player, they die.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Courtier",
+        "ability": "Once per game, at night, choose a character: they are drunk for 3 nights & 3 days.",
+        "night": "The Courtier might choose a character.",
+        "team": "townsfolk",
+        "causesDrunk": true
+    },
+    {
+        "name": "Professor",
+        "ability": "Once per game, at night*, choose a dead player: if they are a Townsfolk, they are resurrected.",
+        "night": "The Professor might choose a dead player.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Minstrel",
+        "ability": "When a Minion dies by execution, all other players (except Travellers) are drunk until dusk tomorrow.",
+        "night": "",
+        "team": "townsfolk",
+        "causesDrunk": true
+    },
+    {
+        "name": "Tea Lady",
+        "ability": "If both your alive neighbors are good, they can't die.",
+        "night": "",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Pacifist",
+        "ability": "Executed good players might not die.",
+        "night": "",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Fool",
+        "ability": "The 1st time you die, you don't.",
+        "night": "",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Butler",
+        "ability": "Each night, choose a player (not yourself): tomorrow, you may only vote if they are voting too.",
+        "night": "The Butler chooses a player.",
+        "team": "outsider"
+    },
+    {
+        "name": "Drunk",
+        "ability": "You do not know you are the Drunk. You think you are a Townfolk character, but you are not.",
+        "night": "",
+        "team": "outsider",
+        "causesDrunk": true
+    },
+    {
+        "name": "Recluse",
+        "ability": "You might register as evil & as a Minion or Demon, even if dead,",
+        "night": "",
+        "team": "outsider"
+    },
+    {
+        "name": "Saint",
+        "ability": "If you die by execution, your team loses.",
+        "night": "",
+        "team": "outsider"
+    },
+    {
+        "name": "Goon",
+        "ability": "Each night, the 1st player to choose you with their ability is drunk until dusk. You become their alignment.",
+        "night": "",
+        "team": "outsider",
+        "causesDrunk": true
+    },
+    {
+        "name": "Lunatic",
+        "ability": "you think you are a Demon, but you are not. The Demon knows who you are & who you choose at night.",
+        "firstNight": "If there are 7 or more players, wake the Lunatic: Show the THESE ARE YOUR MINIONS token. Point to any players. Show the THESE CHARACTERS ARE NOT IN PLAY token. Show 3 good character tokens. Put the Lunatic to sleep. Wake the Demon. Show the YOU ARE info token and the Demon token. Show the THIS PLAYER IS info token and the Lunatic token, then point to the Lunatic.",
+        "otherNight": "Do whatever needs to be done to simulate the Demon acting. Put the Lunatic to sleep. Wake the Demon. Show the Lunatic token & point to them, then their target(s).",
+        "team": "outsider"
+    },
+    {
+        "name": "Tinker",
+        "ability": "You might die at any time.",
+        "night": "The Tinker might die.",
+        "team": "outsider"
+    },
+    {
+        "name": "Moonchild",
+        "ability": "When you learn that you died, publicly choose 1 alive player. Tonight, if it was a good player, they die.",
+        "night": "If the Moonchild is due to kill a good player, they die.",
+        "team": "outsider"
+    },
+    {
+        "name": "Poisoner",
+        "ability": "Each night, choose a player: they are poisoned tonight and tomorrow day.",
+        "night": "The Poisoner chooses a player.",
+        "team": "minion",
+        "causesPoison": true
+    },
+    {
+        "name": "Spy",
+        "ability": "Each night, you see the Grimoire. You might register as good & as a Townsfolk or Outsider, even if dead.",
+        "night": "Show the Grimoire for as long as the Spy needs.",
+        "team": "minion"
+    },
+    {
+        "name": "Baron",
+        "ability": "There are extra Outsiders in play. [+2 Outsiders]",
+        "night": "",
+        "team": "minion"
+    },
+    {
+        "name": "Scarlet Woman",
+        "ability": "If there are 5 or more players alive & the Demon dies, you become the Demon. (Travellers don't count.)",
+        "night": "If the Scarlet Woman became the Impo today, show them the YOU ARE token, then the Imp token.",
+        "team": "minion"
+    },
+    {
+        "name": "Godfather",
+        "ability": "You start knowing which Outsiders are in play. If 1 died today, choose a player tonight: they die. [-1 or +1 Outsider]",
+        "firstNight": "Show the character tokens of all in-play Outsiders.",
+        "otherNight": "If an Outsider died today, the Godfather chooses a player.",
+        "team": "minion"
+    },
+    {
+        "name": "Devil's Advocate",
+        "ability": "Each night, choose a living player (different to last night): if executed tomorrow, they don't die.",
+        "night": "The Devil's Advocate chooses a living player.",
+        "team": "minion"
+    },
+    {
+        "name": "Assassin",
+        "ability": "Once per game, at night*, choose a player: they die, even if for some reason they could not.",
+        "night": "The Assassin might choose a player.",
+        "team": "minion"
+    },
+    {
+        "name": "Mastermind",
+        "ability": "If the Demon dies by execution (ending the game), player for 1 more day. If a player is then executed, their team loses.",
+        "night": "",
+        "team": "minion"
+    },
+    {
+        "name": "Imp",
+        "ability": "Each night*, choose a player: they die. If you kill yourself this way, a Minion becomes the Imp.",
+        "night": "The Imp chooses a player. If the Imp chose themselves: Replace 1 alive Minion token with a spare Imp token. Put the old Imp to sleep. Wake the new Imp. Show the YOU ARE token, then show the Imp token.",
+        "team": "demon"
+    },
+    {
+        "name": "Zombuul",
+        "ability": "Each night*, if no-one died today, choose a player: they die. The 1st time you die, you live but register as dead.",
+        "night": "If no one died today, the Zombuul chooses a player.",
+        "team": "demon"
+    },
+    {
+        "name": "Pukka",
+        "ability": "Each night, choose a player: they are poisoned. The previously poisoned player dies then becomes healthy.",
+        "firstNight": "The Pukka chooses a player.",
+        "otherNight": "The Pukka chooses a player. The previously poisoned player dies then becomes healthy.",
+        "team": "demon",
+        "causesPoison": true
+    },
+    {
+        "name": "Shabaloth",
+        "ability": "Each night*, choose 2 players: they die. A dead player you chose last night might be regurgitated.",
+        "night": "A previously chosen player mightbe resurrected. The Shabaloth chooses 2 players.",
+        "team": "demon"
+    },
+    {
+        "name": "Po",
+        "ability": "Each night*, you may choose a player: they die. If your last choice was no-one, choose 3 players tonight.",
+        "night": "The Po may choose a player OR chooses 3 players if they chose no-one last night.",
+        "team": "demon"
+    },
+    {
+        "name": "Clockmaker",
+        "ability": "You start knowing how many steps from the Demon to its nearest Minion.",
+        "night": "Give a finger signal.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Dreamer",
+        "ability": "Each night, choose a player (not yourself or Travellers): you learn 1 good & 1 evil character, 1 of which is correct.",
+        "night": "The Dreamer points to a player. Show 1 good & 1 evil character token, 1 of which is their character.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Snake Charmer",
+        "ability": "Each night, choose an alive player: a chosen Demon swaps characters & alignments with you & is then poisoned.",
+        "team": "townsfolk",
+        "causesPoison": true,
+        "night": "The Snake Charmer chooses a player. If they chose the Demon: Show the YOU ARE & Demon tokens. Give a thumbs down. Swap the Snake Charmer & Demon tokens. Put the old Snake Charmer to sleep. Wake the old Demon. Show the YOU ARE and Snake Charmer tokens & give a thumbs up."
+    },
+    {
+        "name": "Mathematician",
+        "ability": "Each night, you learn how many players' abilities worked abnormally (since dawn) due to another character's ability.",
+        "night": "Give a finger signal.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Flowergirl",
+        "ability": "Each night*, you learn if a Demon voted today.",
+        "night": "Either nod or shake your head.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Town Crier",
+        "ability": "Each night*, you learn if a Minion nominated today.",
+        "night": "Either nod or shake your head.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Oracle",
+        "ability": "Each night*, you learn how many dead players are evil.",
+        "night": "Give a finger signal.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Savant",
+        "ability": "Each day, you may visit the Storyteller to learn 2 things in private: 1 is true & 1 is false.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Seamstress",
+        "ability": "Once per game, at night, choose 2 players (not yourself): you learn if they are the same alignment.",
+        "night": "The Seamstress might choose 2 players. Nod or shake your head.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Philosopher",
+        "ability": "Once per game, at night, choose a good character: gain that ability. If this character is in play, they are drunk.",
+        "team": "townsfolk",
+        "causesDrunk": true,
+        "night": "The Philosopher might choose a character. If necessary, swap their character token."
+    },
+    {
+        "name": "Artist",
+        "ability": "Once per game, during the day, privately ask the Storyteller any yes/no question.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Juggler",
+        "ability": "On your 1st day, publicly guess up to 5 players' characters. That night, you learn how many you got correct.",
+        "night": "Give a finger signal.",
+        "team": "townsfolk"
+    },
+    {
+        "name": "Sage",
+        "ability": "If the Demon kills you, you learn that it is 1 of 2 players.",
+        "night": "If the Demon killed the Sage, wake the Sage and point to 2 players, 1 of which is the Demon.",
+        "team": "townsfolk",
+        "oneTimeDeadAbility": true
+    },
+    {
+        "name": "Mutant",
+        "ability": "If you are \"mad\" about being an Outsider, you might be executed.",
+        "team": "outsider"
+    },
+    {
+        "name": "Barber",
+        "ability": "If you died today or tonight, the Demon may choose 2 players (not another Demon) to swap characters.",
+        "night": "If the Barber died today or tonight, show the Demon the THIS CHARACTER SELECTED YOU & Barber tokens. If the Demon chose 2 players, wake one at a time. Show the YOU ARE token & their new character token.",
+        "team": "outsider"
+    },
+    {
+        "name": "Sweetheart",
+        "ability": "When you die, 1 player is drunk from now on.",
+        "night": "If the Sweetheart died, a player became drunk immediately. If you haven't done this yet, do so now.",
+        "team": "outsider",
+        "causesDrunk": true
+    },
+    {
+        "name": "Klutz",
+        "ability": "When you learn that you died, publicly choose 1 alive player: if they are evil, your team loses.",
+        "team": "outsider"
+    },
+    {
+        "name": "Witch",
+        "ability": "Each night, choose a player: if they nominate tomorrow, they die. If just 3 players live, you lose this ability.",
+        "team": "minion",
+        "night": "The Witch chooses a player."
+    },
+    {
+        "name": "Cerenovus",
+        "ability": "Each night, choose a player & a good character: they are \"mad\" they are this character tomorrow, or might be executed.",
+        "team": "minion",
+        "night": "The Cerenovus chooses a player & a character. Put the Cerenovus to sleep. Wake the target. Show the THIS CHARACTER SELECTED YOU token, the Cerenovus token, then the madness-character token."
+    },
+    {
+        "name": "Pit-Hag",
+        "ability": "Each night*, choose a player & a character they become (if not in play). If a Demon is made, deaths tonight are arbitrary.",
+        "night": "The Pit-Hag chooses a player & a character. If they chose a character that is not in play: Put the Pit-Hag to sleep. Wake the target. Show the YOU ARE token & their new character token.",
+        "team": "minion"
+    },
+    {
+        "name": "Evil Twin",
+        "ability": "You & an opposing player know each other. If the good player is executed, evil wins. Good can't win if you both live.",
+        "team": "minion",
+        "night": "Wake both twins. Allow eye contact. Show the good twin's character token to the Evil Twin & vice versa."
+    },
+    {
+        "name": "Fang Gu",
+        "ability": "Each night*, choose a player: they die. The 1st Outsider this kills becomes an evil Fang Gu & you die instead. [+1 Outsider]",
+        "night": "The Fang Gu chooses a player. If they chose an Outsider (once only): Replace the Outsider token with the spare Fang Gu token. Put the Fang Gu to sleep. Wake the target. Show the YOU ARE and Fang Gu tokens & give a thumbs-down.",
+        "team": "demon"
+    },
+    {
+        "name": "Vigormortis",
+        "ability": "Each night*, choose a player: they die. Minions you kill keep their ability & poison 1 Townsfolk neighbor. [-1 Outsider]",
+        "night": "The Vigormortis chooses a player. If that player is a Minion, poison neighboring Townsfolk.",
+        "team": "demon",
+        "causesPoison": true
+    },
+    {
+        "name": "No Dashii",
+        "ability": "Each night*, choose a player: they die. Your 2 Townsfolk neighbors are poisoned.",
+        "night": "The No Dashii chooses a player.",
+        "team": "demon",
+        "causesPoison": true
+    },
+    {
+        "name": "Vortox",
+        "ability": "Each night*, choose a player: they die. Townsfolk abilities yield false info. Each day, if no-one is executed, evil wins.",
+        "night": "The Vortox chooses a player.",
+        "team": "demon"
+    }
+]

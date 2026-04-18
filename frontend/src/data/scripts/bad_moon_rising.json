@@ -1,0 +1,32 @@
+{
+    "name": "Bad Moon Rising",
+    "roles": [
+        "Grandmother",
+        "Sailor",
+        "Chambermaid",
+        "Exorcist",
+        "Innkeeper",
+        "Gambler",
+        "Gossip",
+        "Courtier",
+        "Professor",
+        "Minstrel",
+        "Tea Lady",
+        "Pacifist",
+        "Fool",
+        "Goon",
+        "Lunatic",
+        "Tinker",
+        "Moonchild",
+        "Godfather",
+        "Devil's Advocate",
+        "Assassin",
+        "Mastermind",
+        "Zombuul",
+        "Pukka",
+        "Shabaloth",
+        "Po"
+    ],
+    "firstNight": ["Dusk", "Minion Info", "Lunatic", "Demon Info", "Sailor", "Courtier", "Godfather", "Devil's Advocate", "Pukka", "Grandmother", "Chambermaid", "Dawn"],
+    "otherNight": ["Dusk", "Sailor", "Innkeeper", "Courtier", "Gambler", "Devil's Advocate", "Lunatic", "Exorcist", "Zombuul", "Pukka", "Shabaloth", "Po", "Assassin", "Godfather", "Professor", "Gossip", "Tinker", "Moonchild", "Grandmother", "Chambermaid", "Dawn"]
+}
